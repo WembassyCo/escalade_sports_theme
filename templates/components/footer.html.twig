@@ -1,94 +1,61 @@
 {#
 /**
  * @file
- * Footer component template.
+ * Footer component for Escalade Sports D7 recreation.
+ *
+ * D7 Requirements:
+ * - Blue background (#0A4C97)
+ * - footer-inner centered (75% width)
+ * - footer-left region (2/3 width)
+ * - footer-right region (1/3 width)
+ * - Links styled (#878E83)
+ * - Copyright attribution
+ * - Suggest button styled
  *
  * Variables:
- * - page.footer_first: First footer region
- * - page.footer_second: Second footer region
- * - page.footer_third: Third footer region
+ * - page.footer: Full footer blocks
+ * - page.footer_left: Left footer column (2/3)
+ * - page.footer_right: Right footer column (1/3)
  * - site_name: Site name
- * - site_year: Current year
  */
 #}
 
 <div class="footer-wrapper">
 
-  {# Main Footer Content - 3 Columns #}
-  <div class="footer-main py-5">
-    <div class="container">
-      <div class="row g-4">
+  <div id="footer-inner" class="clearfix">
 
-        {# Footer First Column #}
-        {% if page.footer_first %}
-          <div class="footer-region footer-first col-md-4">
-            {{ page.footer_first }}
-          </div>
-        {% endif %}
-
-        {# Footer Second Column #}
-        {% if page.footer_second %}
-          <div class="footer-region footer-second col-md-4">
-            {{ page.footer_second }}
-          </div>
-        {% endif %}
-
-        {# Footer Third Column #}
-        {% if page.footer_third %}
-          <div class="footer-region footer-third col-md-4">
-            {{ page.footer_third }}
-          </div>
-        {% endif %}
-
-      </div><!-- /.row -->
-    </div><!-- /.container -->
-  </div>{# /.footer-main --
-
-  {# Footer Bottom Bar - Copyright and Links #}
-  <div class="footer-bottom py-3 border-top">
-    <div class="container">
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-        
-        {# Copyright #}
-        <div class="footer-copyright mb-2 mb-md-0">
-          <p class="mb-0 small">
-            &copy; {{ 'now'|date('Y') }} {{ site_name|default('Escalade Sports') }} | All Rights Reserved
-          </p>
-        </div>
-
-        {# Footer Links #}
-        <div class="footer-links">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item">
-              <a href="{{ path('<front>') }}" class="text-decoration-none small">{{ 'Home'|t }}</a>
-            </li>
-            <li class="list-inline-item mx-2"><span>| <span></li>
-            <li class="list-inline-item">
-              <a href="/privacy-policy" class="text-decoration-none small">{{ 'Privacy Policy'|t }}</a>
-            </li>
-            <li class="list-inline-item mx-2"><span>| </span></li>
-            <li class="list-inline-item">
-              <a href="/terms-of-service" class="text-decoration-none small">{{ 'Terms of Service'|t }}</a>
-            </li>
-            <li class="list-inline-item mx-2"><span>| </span></li>
-            <li class="list-inline-item">
-              <a href="/contact" class="text-decoration-none small">{{ 'Contact Us'|t }}</a>
-            </li>
-          </ul>
-        </div>
-
-        {# Back to Top Link #}
-        <div class="footer-back-to-top">
-          <a href="#" class="btn btn-sm btn-outline-secondary" title="{{ 'Back to top'|t }}" 
-             onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-            </svg>
-          </a>
-        </div>
-
+    {# Footer Blocks #}
+    {% if page.footer %}
+      <div id="footer-full" class="clearfix">
+        {{ page.footer }}
       </div>
-    </div>
-  </div>{# /.footer-bottom --
+    {% endif %}
 
-</div>{# /.footer-wrapper --
+    {# Footer Columns - 2/3 Left, 1/3 Right #}
+    {% if page.footer_left or page.footer_right %}
+      <div id="footer-columns" class="clearfix">
+        
+        {# Footer Left - 2/3 width #}
+        {% if page.footer_left %}
+          <div id="footer-left">
+            {{ page.footer_left }}
+          </div>
+        {% endif %}
+
+        {# Footer Right - 1/3 width #}
+        {% if page.footer_right %}
+          <div id="footer-right">
+            {{ page.footer_right }}
+          </div>
+        {% endif %}
+        
+      </div>
+    {% endif %}
+
+    {# Copyright Attribution #}
+    <p class="attribute-creator">
+      &copy; {{ 'now'|date('Y') }} Escalade Sports. All Rights Reserved.
+    </p>
+
+  </div>
+</div>
