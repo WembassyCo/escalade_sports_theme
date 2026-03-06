@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows for Discussion Topics Block.
+ *
+ * WP 2285: View templates for discussion-topics (block view)
+ *
+ * Styling from D7:
+ * - Float-based rows
+ * - Poll integration if applicable
+ */
+#}
+{% if title %}
+  <h4 class="view-title" style="font-size: 1.25em;">{{ title }}</h4>
+{% endif %}
+
+<div class="view-discussion-topics view-display-id-block">
+  {% for key, row in rows %}
+    {% set row_classes = [
+      default_row_class ? 'views-row',
+      'd-block',
+      'w-100',
+      'clearfix',
+      'float-left',
+      'mb-2',
+    ] %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+      {{- row.content -}}
+    </div>
+  {% endfor %}
+</div>
+
+{% if more %}
+  <div class="view-more mt-3">{{ more }}</div>
+{% endif %}
+
+{% if footer %}
+  <footer class="view-footer mt-3 pt-2 border-top">{{ footer }}</footer>
+{% endif %}

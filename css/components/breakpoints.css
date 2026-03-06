@@ -1,0 +1,302 @@
+/**
+ * Escalade Sports Theme - Responsive Layout Breakpoints (WP 2282)
+ * D7 Responsive Layout Recreation
+ * 
+ * Breakpoints:
+ * - Big Screen: 1025px+ (three_col_grail, sidebars 25% each)
+ * - Tablet Landscape: 769-1024px (three_col_grail, sidebars 20% each)
+ * - Tablet Portrait: 481-768px (one_col_vert, sidebars stack, 50% each)
+ * - Smartphone Landscape: 321-480px (one_col_vert, sidebars stack)
+ * - Smartphone Portrait: max 320px (one_col_stack, full width)
+ */
+
+/* =============================================
+   Container Settings
+   ============================================= */
+.container,
+.container-fluid,
+.region-container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Header inner padding: 0 2em (D7) */
+.header-inner {
+  padding: 0 2em;
+}
+
+/* Home content width: 75% (D7) */
+#home-content,
+.home-content {
+  width: 75%;
+}
+
+/* Columns container (D7 Holy Grail) */
+#columns,
+.main-content-wrapper,
+.layout-container main {
+  width: 75%;
+}
+
+/* =============================================
+   Holy Grail Layout (3-column layout)
+   Sidebar widths: 25% each
+   Content: 50%
+   ============================================= */
+.three-col-grail {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.three-col-grail .sidebar-first {
+  flex: 0 0 25%;
+  max-width: 25%;
+  order: -1;
+}
+
+.three-col-grail .content-wrapper {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.three-col-grail .sidebar-second {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+/* =============================================
+   Big Screen: 1025px+
+ * Layout: three_col_grail
+ * Sidebars: 25% each
+ ============================================= */
+@media screen and (min-width: 1025px) {
+  .layout-container {
+    display: flex;
+  }
+  
+  .layout-container.three-col-grail .sidebar-first,
+  .layout-container.three-col-grail .sidebar-second {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  .layout-container.three-col-grail .content-column {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* =============================================
+   Tablet Landscape: 769px - 1024px
+ * Layout: three_col_grail
+ * Sidebars: 20% each
+ ============================================= */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .container,
+  .container-fluid {
+    max-width: 100%;
+  }
+  
+  #page > #columns,
+  .main-content-wrapper,
+  .content-column {
+    width: 100%;
+  }
+  
+  /* Sidebars narrower at this breakpoint */
+  .three-col-grail .sidebar-first,
+  .three-col-grail .sidebar-second {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+  
+  .three-col-grail .content-wrapper {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+}
+
+/* =============================================
+   Tablet Portrait: 481px - 768px
+ * Layout: one_col_vert
+ * Sidebars: Stack below content, 50% each
+ ============================================= */
+@media screen and (max-width: 768px) and (min-width: 481px) {
+  .container {
+    max-width: 720px;
+  }
+  
+  /* Stack layout - sidebars below content */
+  #page,
+  .layout-container {
+    flex-direction: column;
+  }
+  
+  #columns,
+  .main-content-wrapper,
+  .content-column {
+    width: 100%;
+  }
+  
+  /* Sidebars stack vertically */
+  .sidebar-first,
+  .sidebar-second,
+  .region-sidebar-first,
+  .region-sidebar-second {
+    width: 50%;
+    float: left;
+  }
+  
+  /* Clear floats */
+  .sidebar-first:after,
+  .sidebar-second:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* =============================================
+   Smartphone Landscape: 321px - 480px
+ * Layout: one_col_vert
+ * Sidebars: Stack below content
+ ============================================= */
+@media screen and (max-width: 480px) and (min-width: 321px) {
+  .container {
+    max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Vertical stack layout */
+  #page,
+  .layout-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  #columns,
+  .content-column,
+  .sidebar-first,
+  .sidebar-second {
+    width: 100%;
+    float: none;
+  }
+  
+  /* Sidebars below content */
+  .region-sidebar-first,
+  .region-sidebar-second {
+    width: 100%;
+    order: 1;
+  }
+  
+  .content-column {
+    order: 0;
+  }
+}
+
+/* =============================================
+   Smartphone Portrait: max 320px
+ * Layout: one_col_stack
+ * All regions: Full width, stacked
+ ============================================= */
+@media screen and (max-width: 320px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Full stack layout - everything vertical */
+  #page,
+  .layout-container,
+  #columns {
+    display: block;
+    width: 100%;
+  }
+  
+  /* All regions full width */
+  .header,
+  .content-column,
+  .sidebar-first,
+  .sidebar-second,
+  .footer {
+    width: 100% !important;
+    flex: none !important;
+    max-width: 100% !important;
+  }
+  
+  /* Hide sidebars or stack them completely */
+  .region-sidebar-first,
+  .region-sidebar-second {
+    display: none; /* or keep visible but full width below content */
+  }
+}
+
+/* =============================================
+   Bootstrap 5 Responsive Breakpoints
+   (Alternative reference)
+   ============================================= */
+/* X-Small: 0px - 575px */
+@media (max-width: 575px) { }
+
+/* Small: 576px+ */
+@media (min-width: 576px) { }
+
+/* Medium: 768px+ */
+@media (min-width: 768px) { }
+
+/* Large: 992px+ */
+@media (min-width: 992px) { }
+
+/* X-Large: 1200px+ */
+@media (min-width: 1200px) { }
+
+/* XX-Large: 1400px+ */
+@media (min-width: 1400px) { }
+
+/* =============================================
+   Utility Classes
+   ============================================= */
+.visible-large {
+  display: none;
+}
+
+@media screen and (min-width: 1025px) {
+  .visible-large {
+    display: block;
+  }
+}
+
+.hidden-tablet {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .hidden-tablet {
+    display: none;
+  }
+}
+
+.hidden-mobile {
+  display: block;
+}
+
+@media screen and (max-width: 480px) {
+  .hidden-mobile {
+    display: none;
+  }
+}
+
+/* =============================================
+   Container Widths (from D7)
+   ============================================= */
+@media screen {
+  @media (max-width: 1024px) {
+    #page > #columns {
+      width: 100%;
+    }
+  }
+}

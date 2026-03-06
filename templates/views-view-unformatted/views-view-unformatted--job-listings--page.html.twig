@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows for Job Listings.
+ *
+ * WP 2283: View templates for job-listings
+ * 
+ * Styling from D7:
+ * - Inline display: Image/logo + text side by side
+ * - Image: inline-block, vertical-align: middle, margin-right: 2em
+ * - Text container: inline-block, vertical-align: middle
+ * - Border separator between listings
+ * - Title: color #000
+ * - Reports-to: color #878E83
+ */
+#}
+{% if title %}
+  <h3 class="view-title" style="font-size: 1.5em;">{{ title }}</h3>
+{% endif %}
+
+<div class="view-job-listings view-display-id-page">
+  {% for key, row in rows %}
+    {% set row_classes = [
+      default_row_class ? 'views-row',
+      'd-block',
+      'w-100',
+      'clearfix',
+      loop.last ? '' : 'border-bottom pb-3 mb-3',
+    ] %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+      {{- row.content -}}
+    </div>
+  {% endfor %}
+</div>
+
+{% if pager %}
+  <div class="view-pager mt-4">{{ pager }}</div>
+{% endif %}
+
+{% if more %}
+  <div class="view-more mt-3">{{ more }}</div>
+{% endif %}
+
+{% if footer %}
+  <footer class="view-footer mt-4 pt-3 border-top">{{ footer }}</footer>
+{% endif %}

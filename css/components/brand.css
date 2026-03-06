@@ -1,0 +1,185 @@
+/**
+ * Escalade Sports Theme - Brand Colors
+ * Extracted from escaladesports.com
+ * Primary Blue: #004c97
+ * Accent Blue: #30b8f8
+ * Accent Red: #e1002a
+ */
+
+/* =============================================
+   Escalade Brand Colors
+   ============================================= */
+ :root {
+  /* Primary Brand Colors - from escaladesports.com */
+  --escalade-brand-blue: #004c97;
+  --escalade-brand-blue-dark: #001d40;
+  --escalade-brand-blue-darker: #001938;
+  --escalade-brand-blue-alt: #2667a7;
+  
+  /* Accent Colors */
+  --escalade-brand-light: #30b8f8;
+  --escalade-brand-red: #e1002a;
+  
+  /* D7 Legacy Colors (mapped to brand) */
+  --escalade-primary: #004c97;      /* Was #0A4C97, now brand blue */
+  --escalade-primary-dark: #001d40; /* Was #0b5ed7, now darker blue */
+  --escalade-primary-light: #30b8f8; /* Was #6ea8fe, now accent light */
+  --escalade-accent: #30b8f8;       /* From brand - accent blue */
+  --escalade-accent-hover: #24b8f0; /* Hover state */
+  --escalade-danger: #e1002a;       /* From brand - red */
+  
+  /* Text Colors */
+  --escalade-text-dark: #4b4f54;
+  --escalade-text-darker: #333333;
+  --escalade-text-muted: #aaacaf;
+  --escalade-text-light: #a0a0a0;
+  
+  /* Background Colors */
+  --escalade-bg-content: #e4e5e5;
+  --escalade-bg-light: #ececec;
+  --escalade-bg-white: #ffffff;
+  --escalade-bg-dark: #4b4f54;
+  
+  /* Border Colors */
+  --escalade-border-color: #e4e5e5;
+  --escalade-border-dark: #4b4f54;
+  
+  /* Focus Color */
+  --escalade-focus: #fc0;
+}
+
+/* =============================================
+   Brand Typography - from escaladesports.com
+   ============================================= */
+ 
+/* Font Stack - Arial/Helvetica for consistency with brand */
+:root {
+  --escalade-font-heading: Arial, Helvetica, sans-serif;
+  --escalade-font-body: Arial, Helvetica, sans-serif;
+  --escalade-font-menu: Arial, Helvetica, sans-serif;
+  --escalade-font-block-title: Arial, Helvetica, sans-serif;
+}
+
+/* =============================================
+   Brand Color Classes
+   ============================================= */
+.text-brand {
+  color: var(--escalade-brand-blue) !important;
+}
+
+.text-brand-light {
+  color: var(--escalade-brand-light) !important;
+}
+
+.text-brand-red {
+  color: var(--escalade-brand-red) !important;
+}
+
+.bg-brand {
+  background-color: var(--escalade-brand-blue) !important;
+}
+
+.bg-brand-light {
+  background-color: var(--escalade-brand-light) !important;
+}
+
+.bg-brand-dark {
+  background-color: var(--escalade-brand-blue-dark) !important;
+}
+
+.border-brand {
+  border-color: var(--escalade-brand-blue) !important;
+}
+
+/* =============================================
+   Link Colors - Brand Consistent
+   ============================================= */
+a {
+  color: var(--escalade-brand-blue);
+}
+
+a:hover,
+a:focus {
+  color: var(--escalade-brand-light);
+}
+
+/* =============================================
+   Heading Styles
+   ============================================= */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--escalade-font-heading);
+  color: var(--escalade-text-dark);
+}
+
+h1, .h1 {
+  color: var(--escalade-brand-blue);
+  background-color: var(--escalade-brand-blue);
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+
+h2, .h2 {
+  color: var(--escalade-brand-blue);
+}
+
+/* =============================================
+   Content Area Background
+   ============================================= */
+.content-area {
+  background-color: var(--escalade-bg-content);
+}
+
+/* =============================================
+   Focus Styles - Yellow from D7
+   ============================================= */
+.form-control:focus,
+.form-select:focus,
+input:focus,
+textarea:focus {
+  border-color: var(--escalade-focus);
+  box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
+}
+
+/* =============================================
+   Sidebar Block Styling
+   ============================================= */
+.sidebar .block {
+  background-color: var(--escalade-bg-content);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar .block-title,
+.sidebar h2 {
+  background-color: var(--escalade-brand-blue);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  margin: -1rem -1rem 1rem -1rem;
+  font-family: var(--escalade-font-block-title);
+  text-transform: lowercase;
+  font-size: 1.1em;
+}
+
+/* =============================================
+   Logo Styling
+   ============================================= */
+.site-logo {
+  max-width: 200px;
+}
+
+/* Dark header background - use brightened logo */
+#header .site-logo,
+.site-header .site-logo {
+  filter: brightness(500%) saturate(0%);
+}
+
+/* Light backgrounds - use normal logo */
+.site-logo-plain {
+  filter: none;
+}
+
+/* =============================================
+   Favicon Integration
+   ============================================= */
+/* Note: Favicon handled via theme .info file */

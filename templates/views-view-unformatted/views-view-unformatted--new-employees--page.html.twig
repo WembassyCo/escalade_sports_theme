@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows for New Employees.
+ *
+ * WP 2284: View templates for new-employees
+ *
+ * Styling from D7:
+ * - Block view: 100px image width
+ * - Page view: 175px image width
+ * - Image floated left
+ * - Name: color #000, font-size 1.1em, line-height normal
+ * - Intro: line-height 1.5em
+ * - Border-bottom separator
+ * - Last item has no border
+ */
+#}
+{% if title %}
+  <h3 class="view-title" style="font-size: 1.5em;">{{ title }}</h3>
+{% endif %}
+
+<div class="view-new-employees view-display-id-page new-employees">
+  {% for key, row in rows %}
+    {% set row_classes = [
+      default_row_class ? 'views-row',
+      'new-employ',
+      'd-block',
+      'w-100',
+      'clearfix',
+      'mb-3',
+      loop.last ? '' : 'pb-3 border-bottom',
+    ] %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+      {{- row.content -}}
+    </div>
+  {% endfor %}
+</div>
+
+{% if pager %}
+  <div class="view-pager mt-4">{{ pager }}</div>
+{% endif %}
+
+{% if footer %}
+  <footer class="view-footer mt-4 pt-3 border-top">{{ footer }}</footer>
+{% endif %}
