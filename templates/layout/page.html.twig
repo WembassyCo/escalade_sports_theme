@@ -1,108 +1,190 @@
 {#
 /**
  * @file
- * Escalade Sports base page template.
+ * Escalade Sports D7 page template recreation for D11.
  *
  * Variables:
- * - content: The main content region.
- * - header: Header region for logo/site branding.
- * - navigation: Navigation region for main menu.
- * - highlighted: Highlighted region for messages/status.
- * - help: Help region.
- * - sidebar_first: First sidebar region.
- * - sidebar_second: Second sidebar region.
- * - footer_first: Footer first region.
- * - footer_second: Footer second region.
- * - footer_third: Footer third region.
- * - is_front: Whether this is the front page.
+ * - page.header: Header region for branding
+ * - page.menu_bar: Main navigation menu
+ * - page.under_header: Banner/slider area
+ * - page.content: Main content
+ * - page.sidebar_first: Left sidebar
+ * - page.sidebar_second: Right sidebar
+ * - page.above_footer: Above footer content
+ * - page.footer: Full footer
+ * - page.footer_left: Left footer column
+ * - page.footer_right: Right footer column
+ * - is_front: Whether this is the front page
+ * - page['#title']: Page title
  */
 #}
-{% set container = 'container-fluid px-0' %}
 
-<div class="layout-container" role="document">
+<div class="texture-overlay">
+  <div id="page" class="container clearfix">
 
-  {# Header Section with Branding and Navigation #}
-  {% if page.header or page.navigation %}
-    <header class="site-header" role="banner">
-      <div class="header-top">
-        <div class="container">
+    {# Skip Navigation Link for Accessibility #}
+    <a href="#main-content" class="visually-hidden-focusable skip-link">
+      {{ 'Skip to main content'|t }}
+    </a>
+
+    {# HEADER SECTION #}
+    {% if page.header or page.menu_bar or page.under_header %}
+      <header id="header" role="banner">
+        <div class="header-inner clearfix">
+          
+          {# Branding #}
           {% include '@escalade_sports/templates/components/header.html.twig' %}
-      </div>
-    </div>
-      {% if page.navigation %}
-      <div class="header-navigation">
-          <div class="container">
-          {% include '@escalade_sports/templates/components/navigation.html.twig' %}
-          </div>
-      </div>
-      {% endif %}
-    </header>
-  {% endif %}
-
-  {# Highlighted / Status Messages #}
-  {% if page.highlighted %}
-    <div class="highlighted-wrapper">
-      <div class="container">
-        {{ page.highlighted }}
-      </div>
-    </div>
-  {% endif %}
-
-  {# Help Region #}
-  {% if page.help %}
-    <div class="help-wrapper">
-      <div class="container">
-        {{ page.help }}
-      </div>
-    </div>
-  {% endif %}
-
-  {# Main Content Area #}
-  <main class="main-content" role="main">
-    <a id="main-content" tabindex="-1"></a>
-
-    <div class="container content-area">
-      <div class="row">
-
-        {# Sidebar First #}
-        {% if page.sidebar_first %}
-          <aside class="sidebar-first col-lg-3" role="complementary">
-            <div class="sidebar-content">
-              {{ page.sidebar_first }}
+          
+          {# Header Blocks Region #}
+          {% if page.header %}
+            <div id="header-region">
+              {{ page.header }}
             </div>
-          </aside>
-        {% endif %}
-
-        {# Content Column - Dynamic width based on sidebars #}
-        {% set content_col = 'col-lg-12' %}
-        {% if page.sidebar_first and page.sidebar_second %}
-          {% set content_col = 'col-lg-6' %}
-        {% elseif page.sidebar_first or page.sidebar_second %}
-          {% set content_col = 'col-lg-9' %}
-        {% endif %}
-
-        <div class="content-column {{ content_col }}">
-          {{ page.content }}
+          {% endif %}
         </div>
+        
+        {# Menu Bar #}
+        {% if page.menu_bar %}
+          <div id="menu-bar" class="clearfix" role="navigation">
+            {{ page.menu_bar }}
+          </div>
+        {% endif %}
+        
+        {# Under Header (Banner) #}
+        {% if page.under_header %}
+          <div id="page-banner" class="clearfix">
+            {{ page.under_header }}
+          </div>
+        {% endif %}
+      </header>
+    {% endif %}
 
-        {# Sidebar Second #}
-        {% if page.sidebar_second %}
-          <aside class="sidebar-second col-lg-3" role="complementary">
-            <div class="sidebar-content">
-              {{ page.sidebar_second }}
-            </div>
-          </aside>
+    {# MAIN COLUMNS SECTION - Holy Grail Layout #}
+    <div id="columns" class="clearfix">
+      
+      {# Sidebar First - Left (25% width) #}
+      {% if page.sidebar_first %}
+        <aside id="sidebar-first" class="sidebar" role="complementary">
+          <div class="sidebar-inner">
+            {{ page.sidebar_first }}
+          </div>
+        </aside>
+      {% endif %}
+
+      {# Content Column #}
+      <div id="content-column" class="{% if page.sidebar_first and page.sidebar_second %}three-col{% elseif page.sidebar_first %}two-col-left{% elseif page.sidebar_second %}two-col-right{% else %}one-col{% endif %}">
+        
+        {# Highlighted / Status Messages #}
+        {% if page.highlighted %}
+          <div id="highlighted" class="clearfix">
+            {{ page.highlighted }}
+          </div>
         {% endif %}
 
-      </div><!-- /.row -->
-    </div><!-- /.content-area -->
-  </main>
+        {# Breadcrumbs #}
+        {% if page.breadcrumb %}
+          <div id="breadcrumbs" class="clearfix">
+            {{ page.breadcrumb }}
+          </div>
+        {% endif %}
 
-  {# Footer Section #}
-  {% if page.footer_first or page.footer_second or page.footer_third %}
-    <footer class="site-footer" role="contentinfo">
-      {% include '@escalade_sports/templates/components/footer.html.twig' %}
-    </footer>
-  {% endif %}
+        {# Main Content Wrapper #}
+        <main id="main-content" role="main">
+          <a id="main-content-anchor" tabindex="-1"></a>
+          
+          <article class="clearfix">
+            
+            {# Page Title (unless hidden on front) #}
+            {% if not is_front and page['#title'] %}
+              <header class="content-header">
+                <h1 class="page-title">{{ page['#title'] }}</h1>
+              </header>
+            {% endif %}
 
-</div>{# /.layout-container #}
+            {# Action Links #}
+            {% if page.action_links %}
+              <div id="action-links" class="clearfix">
+                {{ page.action_links }}
+              </div>
+            {% endif %}
+
+            {# Local Tasks (Tabs) #}
+            {% if page.tabs %}
+              <div id="local-tasks" class="clearfix">
+                {{ page.tabs }}
+              </div>
+            {% endif %}
+
+            {# Help #}
+            {% if page.help %}
+              <div id="help" class="clearfix">
+                {{ page.help }}
+              </div>
+            {% endif %}
+
+            {# Messages #}
+            {{ page.messages }}
+
+            {# Main Content Area #}
+            <div class="content">
+              {{ page.content }}
+            </div>
+
+          </article>
+        </main>
+      </div>
+
+      {# Sidebar Second - Right (25% width) #}
+      {% if page.sidebar_second %}
+        <aside id="sidebar-second" class="sidebar" role="complementary">
+          <div class="sidebar-inner">
+            {{ page.sidebar_second }}
+          </div>
+        </aside>
+      {% endif %}
+
+    </div>{# /#columns #}
+
+    {# ABOVE FOOTER #}
+    {% if page.above_footer %}
+      <div id="above-footer" class="clearfix">
+        {{ page.above_footer }}
+      </div>
+    {% endif %}
+
+    {# FOOTER SECTION #}
+    {% if page.footer or page.footer_left or page.footer_right %}
+      <footer id="footer" role="contentinfo">
+        <div id="footer-inner" class="clearfix">
+          
+          {# Footer Blocks #}
+          {% if page.footer %}
+            <div id="footer-full" class="clearfix">
+              {{ page.footer }}
+            </div>
+          {% endif %}
+
+          {# Footer Columns #}
+          {% if page.footer_left or page.footer_right %}
+            <div id="footer-columns" class="clearfix">
+              {% if page.footer_left %}
+                <div id="footer-left">
+                  {{ page.footer_left }}
+                </div>
+              {% endif %}
+              {% if page.footer_right %}
+                <div id="footer-right">
+                  {{ page.footer_right }}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {# Copyright attribution #}
+          <p class="attribute-creator">&copy; {{ 'now'|date('Y') }} Escalade Sports. All Rights Reserved.</p>
+        </div>
+      </footer>
+    {% endif %}
+
+  </div>{# /#page.container #}
+</div>{# /.texture-overlay #}

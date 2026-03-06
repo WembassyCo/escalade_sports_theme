@@ -1,6 +1,6 @@
 name: 'Escalade Sports'
 type: theme
-description: 'Custom Bootstrap 5 theme for Escalade Sports with 5-region homepage layout.'
+description: 'Custom Bootstrap 5 theme for Escalade Sports - D7 theme recreation for D11.'
 package: Custom
 core_version_requirement: ^10 || ^11
 
@@ -8,22 +8,28 @@ core_version_requirement: ^10 || ^11
 base theme: radix
 
 regions:
+  # Header regions (from D7)
   header: 'Header'
-  navigation: 'Navigation'
-  highlighted: 'Highlighted'
-  help: 'Help'
+  menu_bar: 'Menu Bar'
+  under_header: 'Under Header (Banner)'
+  
+  # Content regions
   content: 'Content'
   sidebar_first: 'Sidebar First'
   sidebar_second: 'Sidebar Second'
-  # Homepage specific regions (5-region layout: 3 top + 2 bottom)
-  homepage_top_first: 'Homepage Top First'
-  homepage_top_second: 'Homepage Top Second'
-  homepage_top_third: 'Homepage Top Third'
-  homepage_bottom_first: 'Homepage Bottom First'
-  homepage_bottom_second: 'Homepage Bottom Second'
-  footer_first: 'Footer First'
-  footer_second: 'Footer Second'
-  footer_third: 'Footer Third'
+  
+  # Homepage specific regions (5-region layout from D7)
+  home_top_left: 'Home Top Left'
+  home_top_mid: 'Home Top Center'
+  home_top_right: 'Home Top Right'
+  home_bottom_left: 'Home Bottom Left'
+  home_bottom_right: 'Home Bottom Right'
+  
+  # Footer regions (from D7)
+  above_footer: 'Above Footer'
+  footer: 'Footer'
+  footer_left: 'Footer Left'
+  footer_right: 'Footer Right'
 
 libraries:
   - escalade_sports/bootstrap
