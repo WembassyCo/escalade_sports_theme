@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Sidebar regions component template.
+ *
+ * This template handles both sidebar_first and sidebar_second regions.
+ *
+ * Variables:
+ * - sidebar_first: Content for the first sidebar
+ * - sidebar_second: Content for the second sidebar
+ * - position: 'first' or 'second' to identify which sidebar
+ * - has_multiple: Whether multiple sidebars are present
+ */
+#}
+
+{# Sidebar wrapper with conditional classes based on position #}
+<aside class="sidebar sidebar-{{ position|default('first') }}" role="complementary" 
+       aria-label="{{ position == 'second' ? 'Secondary'|t : 'Primary'|t }}">
+  <div class="sidebar-inner">
+
+    {# Sidebar Navigation / Section Menu (if available) #}
+    {% if sidebar_section_menu %}
+      <div class="sidebar-section-menu mb-4">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0 h6">{{ 'In This Section'|t }}</h5>
+          </div>
+          <div class="card-body p-0">
+            {{ sidebar_section_menu }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Sidebar Blocks Content #}
+    {% if position == 'first' and sidebar_first %}
+      <div class="sidebar-content">
+        {{ sidebar_first }}
+      </div>
+    {% elseif position == 'second' and sidebar_second %}
+      <div class="sidebar-content">
+        {{ sidebar_second }}
+      </div>
+    {% endif %}
+
+    {# Call to Action Block #}
+    {% if sidebar_cta %}
+      <div class="sidebar-cta mt-4">
+        <div class="card border-primary">
+          <div class="card-body text-center">
+            {% if sidebar_cta.title %}
+              <h5 class="card-title">{{ sidebar_cta.title }}</h5>
+            {% endif %}
+            {% if sidebar_cta.text %}
+              <p class="card-text">{{ sidebar_cta.text }}</p>
+            {% endif %}
+            {% if sidebar_cta.link %}
+              <a href="{{ sidebar_cta.link.url }}" class="btn btn-primary">{{ sidebar_cta.link.title }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Related Content Block #}
+    {% if sidebar_related %}
+      <div class="sidebar-related mt-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0 h6">{{ 'Related'|t }}</h5>
+          </div>
+          <div class="card-body">
+            {{ sidebar_related }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {# Quick Links Block #}
+    {% if sidebar_quick_links %}
+      <div class="sidebar-quick-links mt-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0 h6">{{ 'Quick Links'|t }}</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              {% for link in sidebar_quick_links %}
+                <li class="mb-2">
+                  <a href="{{ link.url }}" class="text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right me-1" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                    {{ link.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>{# /.sidebar-inner --
+</aside>

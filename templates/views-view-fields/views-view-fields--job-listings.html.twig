@@ -1,0 +1,110 @@
+{#
+/**
+ * @file
+ * Theme override for view fields in Job Listings view.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler object.
+ *   - inline: Whether or not the field should be inline.
+ *   - label: The label text.
+ * @ingroup templates
+ */
+#}
+
+{# Job Listing Item #}
+<div class="job-listing-item card mb-3 shadow-sm border-start-4 border-start-primary">
+  <div class="card-body p-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+      
+      {# Job Info #}
+      <div class="flex-grow-1">
+        {# Title #}
+        {% if fields.title %}
+          <h3 class="h5 mb-2">
+            <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+               class="text-decoration-none text-dark fw-bold hover-primary">
+              {{ fields.title.content }}
+            </a>
+          </h3>
+        {% endif %}
+        
+        {# Meta Row #}
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+          {% if fields.field_business_unit and fields.field_business_unit.content|striptags|trim is not empty %}
+            <span class="badge bg-light text-dark border">
+              <i class="bi bi-building me-1 text-primary"></i>{{ fields.field_business_unit.content }}
+            </span>
+          {% endif %}
+          {% if fields.field_reports_to and fields.field_reports_to.content|striptags|trim is not empty %}
+            <span class="badge bg-info text-dark">
+              <i class="bi bi-person-badge me-1"></i>Reports to: {{ fields.field_reports_to.content }}
+            </span>
+          {% endif %}
+        </div>
+        
+        {# Job Description Excerpt #}
+        {% if fields.body and fields.body.content|striptags|trim is not empty %}
+          <div class="text-muted small line-clamp-2">
+            {{ fields.body.content }}
+          </div>
+        {% endif %}
+      </div>
+      
+      {# Actions #}
+      <div class="d-flex flex-column gap-2 flex-shrink-0">
+        <div class="d-flex gap-2">
+          {# Apply Button - External Link #}
+          {% if fields.field_link_to_info and fields.field_link_to_info.content|striptags|trim is not empty %}
+            <a href="{{ fields.field_link_to_info.content|striptags|trim }}" 
+               class="btn btn-primary btn-sm"
+               target="_blank"
+               rel="noopener noreferrer">
+              <i class="bi bi-box-arrow-up-right me-1"></i>Apply
+            </a>
+          {% endif %}
+          
+          {# Details Button #}
+          <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+             class="btn btn-outline-primary btn-sm">
+            Details <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+        
+        {# PDF Download #}
+        {% if fields.field_job_info_pdf and fields.field_job_info_pdf.content|striptags|trim is not empty %}
+          <a href="{{ fields.field_job_info_pdf.content|striptags|trim }}" 
+             class="btn btn-outline-secondary btn-sm"
+             target="_blank"
+             rel="noopener noreferrer">
+            <i class="bi bi-file-pdf me-1"></i>Download PDF
+          </a>
+        {% endif %}
+      </div>
+      
+    </div>
+    
+    {# Footer Meta #}
+    <div class="mt-3 pt-3 border-top text-muted small d-flex justify-content-between align-items-center">
+      <div>
+        {% if fields.created %}
+          <span>
+            <i class="bi bi-clock me-1"></i>Posted: {{ fields.created.content }}
+          </span>
+        {% endif %}
+      </div>
+      <div>
+        {% if fields.promote and fields.promote.content|striptags == '1' %}
+          <span class="badge bg-success">
+            <i class="bi bi-star-fill me-1"></i>Featured
+          </span>
+        {% endif %}
+      </div>
+    </div>
+    
+  </div>
+</div>

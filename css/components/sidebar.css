@@ -1,0 +1,313 @@
+/**
+ * Escalade Sports Theme - Sidebar Component Styles
+ */
+
+/* =============================================
+   Sidebar Layout
+   ============================================= */
+.sidebar {
+  position: sticky;
+  top: 1rem;
+}
+
+.sidebar-first {
+  padding-right: 1rem;
+}
+
+.sidebar-second {
+  padding-left: 1rem;
+}
+
+.sidebar-inner {
+  margin-bottom: 2rem;
+}
+
+/* =============================================
+   Sidebar Blocks (Cards)
+   ============================================= */
+.sidebar .card {
+  border: 1px solid var(--escalade-gray-200);
+  box-shadow: var(--escalade-shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .card:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar .card-header {
+  background: var(--escalade-gray-100);
+  border-bottom: 1px solid var(--escalade-gray-200);
+  padding: 1rem;
+}
+
+.sidebar .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--escalade-gray-800);
+}
+
+.sidebar .card-body {
+  padding: 1rem;
+}
+
+/* Card with Primary Background */
+.sidebar .card-header.bg-primary {
+  background: var(--escalade-primary) !important;
+  color: #ffffff;
+}
+
+.sidebar .card-header.bg-primary .card-title {
+  color: #ffffff;
+}
+
+/* Card with Borders */
+.sidebar .card.border-primary {
+  border-color: var(--escalade-primary);
+}
+
+.sidebar .card.border-primary .card-header {
+  background: var(--escalade-primary);
+  border-color: var(--escalade-primary);
+  color: #ffffff;
+}
+
+.sidebar .card.border-primary .card-title {
+  color: #ffffff;
+}
+
+/* =============================================
+   Section Menu Block
+   ============================================= */
+.sidebar-section-menu .card-body {
+  padding: 0;
+}
+
+.sidebar-section-menu ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section-menu ul.menu li {
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.sidebar-section-menu ul.menu li:last-child {
+  border-bottom: none;
+}
+
+.sidebar-section-menu ul.menu li a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--escalade-gray-700);
+  text-decoration: none;
+  transition: var(--escalade-transition-fast);
+}
+
+.sidebar-section-menu ul.menu li a:hover,
+.sidebar-section-menu ul.menu li a:focus {
+  background: var(--escalade-gray-100);
+  color: var(--escalade-primary);
+}
+
+.sidebar-section-menu ul.menu li.is-active a {
+  background: var(--escalade-primary);
+  color: #ffffff;
+}
+
+.sidebar-section-menu ul.menu ul.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--escalade-gray-200);
+  background: var(--escalade-gray-50);
+}
+
+.sidebar-section-menu ul.menu ul.submenu li a {
+  padding-left: 1.5rem;
+}
+
+/* =============================================
+   Quick Links Block
+   ============================================= */
+.sidebar-quick-links ul.list-unstyled {
+  margin: 0;
+}
+
+.sidebar-quick-links li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-quick-links li:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-quick-links a {
+  display: flex;
+  align-items: center;
+  color: var(--escalade-gray-700);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: var(--escalade-transition-fast);
+}
+
+.sidebar-quick-links a:hover,
+.sidebar-quick-links a:focus {
+  color: var(--escalade-primary);
+  padding-left: 0.25rem;
+}
+
+.sidebar-quick-links svg {
+  width: 14px;
+  height: 14px;
+  margin-right: 0.5rem;
+  color: var(--escalade-primary);
+  flex-shrink: 0;
+}
+
+/* =============================================
+   CTA Block
+   ============================================= */
+.sidebar-cta .card-body.text-center {
+  padding: 1.5rem;
+}
+
+.sidebar-cta .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-cta .card-text {
+  color: var(--escalade-gray-600);
+  margin-bottom: 1rem;
+}
+
+.sidebar-cta .btn {
+  min-width: 120px;
+}
+
+/* =============================================
+   Navigation Menu Block
+   ============================================= */
+.sidebar .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .menu-item {
+  margin-bottom: 0.25rem;
+}
+
+.sidebar .menu-item a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--escalade-gray-700);
+  text-decoration: none;
+  border-radius: var(--escalade-border-radius);
+  transition: var(--escalade-transition-fast);
+}
+
+.sidebar .menu-item a:hover {
+  background: var(--escalade-gray-100);
+  color: var(--escalade-primary);
+}
+
+.sidebar .menu-item.is-active a,
+.sidebar .menu-item--active-trail a {
+  background: rgba(13, 110, 253, 0.1);
+  color: var(--escalade-primary);
+  font-weight: 500;
+}
+
+.sidebar .menu-item--expanded > a {
+  position: relative;
+}
+
+.sidebar .menu-item--expanded > a::after {
+  content: '▼';
+  position: absolute;
+  right: 0.75rem;
+  font-size: 0.625rem;
+  color: var(--escalade-gray-500);
+}
+
+.sidebar .menu-item .menu {
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* =============================================
+   Views Blocks in Sidebar
+   ============================================= */
+.sidebar .views-row {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.sidebar .views-row:last-child {
+  border-bottom: none;
+}
+
+.sidebar .views-field-title {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar .views-field-title a {
+  color: var(--escalade-gray-800);
+  text-decoration: none;
+}
+
+.sidebar .views-field-title a:hover {
+  color: var(--escalade-primary);
+}
+
+.sidebar .views-field-created,
+.sidebar .views-field-date {
+  font-size: 0.875rem;
+  color: var(--escalade-gray-500);
+}
+
+/* =============================================
+   Responsive Sidebars
+   ============================================= */
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: relative;
+    top: 0;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar-first,
+  .sidebar-second {
+    padding: 0;
+  }
+  
+  /* Stack sidebars below content on mobile */
+  .sidebar-first {
+    order: 2;
+  }
+  
+  .content-column {
+    order: 1;
+  }
+  
+  .sidebar-second {
+    order: 3;
+  }
+}
+
+/* =============================================
+   Accessibility
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-section-menu ul.menu li a,
+  .sidebar-quick-links a,
+  .sidebar .menu-item a {
+    transition: none;
+  }
+}

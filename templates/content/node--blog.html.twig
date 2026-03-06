@@ -1,0 +1,130 @@
+{#
+/**
+ * @file
+ * Theme override to display a Blog node.
+ *
+ * Custom template for Blog content type with Bootstrap 5 styling.
+ * Includes support for cover images, tags, and author information.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-blog',
+    'container',
+    'py-4',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  {# Title section #}
+  {% if label and not page %}
+    <header class="mb-3">
+      <h2{{ title_attributes.addClass('display-6 fw-bold text-dark') }}>
+        <a href="{{ url }}" rel="bookmark" class="text-decoration-none hover-primary">{{ label }}</a>
+      </h2>
+    </header>
+  {% else %}
+    <header class="mb-4 border-bottom pb-3">
+      <h1{{ title_attributes.addClass('display-5 fw-bold text-primary') }}>{{ label }}</h1>
+    </header>
+  {% endif %}
+  
+  {{ title_suffix }}
+
+  {# Blog meta information #}
+  {% if display_submitted %}
+    <div class="blog-meta d-flex flex-wrap align-items-center gap-3 mb-4 p-3 bg-light rounded">
+      {% if author_picture %}
+        <div class="flex-shrink-0">
+          {{ author_picture }}
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">
+          {{ author_name }}
+        </span>
+        <span class="text-muted small">
+          <i class="bi bi-calendar-event me-1"></i>{{ date }}
+        </span>
+      </div>
+      {% if content.field_tags|length > 0 %}
+        <div class="ms-auto">
+          <div class="d-flex gap-2 flex-wrap">
+            {{ content.field_tags }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# Featured image/cover photo #}
+  {% if content.field_image|length > 0 %}
+    <div class="blog-featured-image mb-4">
+      <figure class="figure w-100">
+        {{ content.field_image }}
+        {% if content.field_image_caption|length > 0 %}
+          <figcaption class="figure-caption text-center mt-2">
+            {{ content.field_image_caption }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  {% endif %}
+
+  {# Main content area #}
+  <div{{ content_attributes.addClass('node__content blog-content lead') }}>
+    {# Blog body content #}
+    {{ content.body }}
+    
+    {# Additional fields #}
+    {% if content.field_blog_category|length > 0 %}
+      <div class="mt-4 pt-3 border-top">
+        <span class="fw-semibold text-muted">Category:</span>
+        {{ content.field_blog_category }}
+      </div>
+    {% endif %}
+  </div>
+
+  {# Blog tags bottom section #}
+  {% if content.field_tags|length > 0 %}
+    <div class="blog-tags mt-4 pt-3 border-top">
+      <span class="fw-semibold text-muted me-2">Tags:</span>
+      <div class="d-inline-flex gap-2 flex-wrap">
+        {{ content.field_tags }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Links and share buttons #}
+  {% if content.links %}
+    <nav class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center" aria-label="Blog links">
+      <div class="d-flex gap-2">
+        {{ content.links }}
+      </div>
+      <div class="blog-share">
+        <span class="text-muted small me-2">Share:</span>
+        <a href="https://twitter.com/intent/tweet?url={{ url|url_encode }}&text={{ label|url_encode }}" 
+           class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+          <i class="bi bi-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url|url_encode }}" 
+           class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ url|url_encode }}" 
+           class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+          <i class="bi bi-linkedin"></i>
+        </a>
+      </div>
+    </nav>
+  {% endif %}
+
+</article>

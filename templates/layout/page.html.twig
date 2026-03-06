@@ -1,0 +1,108 @@
+{#
+/**
+ * @file
+ * Escalade Sports base page template.
+ *
+ * Variables:
+ * - content: The main content region.
+ * - header: Header region for logo/site branding.
+ * - navigation: Navigation region for main menu.
+ * - highlighted: Highlighted region for messages/status.
+ * - help: Help region.
+ * - sidebar_first: First sidebar region.
+ * - sidebar_second: Second sidebar region.
+ * - footer_first: Footer first region.
+ * - footer_second: Footer second region.
+ * - footer_third: Footer third region.
+ * - is_front: Whether this is the front page.
+ */
+#}
+{% set container = 'container-fluid px-0' %}
+
+<div class="layout-container" role="document">
+
+  {# Header Section with Branding and Navigation #}
+  {% if page.header or page.navigation %}
+    <header class="site-header" role="banner">
+      <div class="header-top">
+        <div class="container">
+          {% include '@escalade_sports/templates/components/header.html.twig' %}
+      </div>
+    </div>
+      {% if page.navigation %}
+      <div class="header-navigation">
+          <div class="container">
+          {% include '@escalade_sports/templates/components/navigation.html.twig' %}
+          </div>
+      </div>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# Highlighted / Status Messages #}
+  {% if page.highlighted %}
+    <div class="highlighted-wrapper">
+      <div class="container">
+        {{ page.highlighted }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Help Region #}
+  {% if page.help %}
+    <div class="help-wrapper">
+      <div class="container">
+        {{ page.help }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Main Content Area #}
+  <main class="main-content" role="main">
+    <a id="main-content" tabindex="-1"></a>
+
+    <div class="container content-area">
+      <div class="row">
+
+        {# Sidebar First #}
+        {% if page.sidebar_first %}
+          <aside class="sidebar-first col-lg-3" role="complementary">
+            <div class="sidebar-content">
+              {{ page.sidebar_first }}
+            </div>
+          </aside>
+        {% endif %}
+
+        {# Content Column - Dynamic width based on sidebars #}
+        {% set content_col = 'col-lg-12' %}
+        {% if page.sidebar_first and page.sidebar_second %}
+          {% set content_col = 'col-lg-6' %}
+        {% elseif page.sidebar_first or page.sidebar_second %}
+          {% set content_col = 'col-lg-9' %}
+        {% endif %}
+
+        <div class="content-column {{ content_col }}">
+          {{ page.content }}
+        </div>
+
+        {# Sidebar Second #}
+        {% if page.sidebar_second %}
+          <aside class="sidebar-second col-lg-3" role="complementary">
+            <div class="sidebar-content">
+              {{ page.sidebar_second }}
+            </div>
+          </aside>
+        {% endif %}
+
+      </div><!-- /.row -->
+    </div><!-- /.content-area -->
+  </main>
+
+  {# Footer Section #}
+  {% if page.footer_first or page.footer_second or page.footer_third %}
+    <footer class="site-footer" role="contentinfo">
+      {% include '@escalade_sports/templates/components/footer.html.twig' %}
+    </footer>
+  {% endif %}
+
+</div>{# /.layout-container #}

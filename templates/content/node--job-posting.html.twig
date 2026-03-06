@@ -1,0 +1,203 @@
+{#
+/**
+ * @file
+ * Theme override to display a Job Posting node.
+ *
+ * Custom template for Job Posting content type with Bootstrap 5 styling.
+ * Includes job details, business unit, reports to, and application links.
+ *
+ * Available fields:
+ * - body: Job Description
+ * - field_business_unit: Business Unit
+ * - field_job_info_pdf: Job Info PDF
+ * - field_link_to_info: Link to Info (External application link)
+ * - field_reports_to: Reports To
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-job-posting',
+    'container',
+    'py-4',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  {# Title section with job header styling #}
+  {% if label and not page %}
+    <header class="mb-3">
+      <h2{{ title_attributes.addClass('display-6 fw-bold text-dark') }}>
+        <a href="{{ url }}" rel="bookmark" class="text-decoration-none hover-primary">{{ label }}</a>
+      </h2>
+    </header>
+  {% else %}
+    <header class="job-header mb-4 p-4 bg-primary text-white rounded shadow-sm">
+      <h1{{ title_attributes.addClass('display-5 fw-bold mb-3') }}>{{ label }}</h1>
+      
+      {# Job meta in header #}
+      <div class="job-header-meta d-flex flex-wrap gap-3">
+        {% if content.field_business_unit|length > 0 %}
+          <div class="job-meta-item">
+            <span class="badge bg-light text-primary fs-6">
+              <i class="bi bi-building me-1"></i>{{ content.field_business_unit }}
+            </span>
+          </div>
+        {% endif %}
+        {% if content.field_reports_to|length > 0 %}
+          <div class="job-meta-item">
+            <span class="badge bg-info text-dark fs-6">
+              <i class="bi bi-person-badge me-1"></i>Reports to: {{ content.field_reports_to }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+    </header>
+  {% endif %}
+  
+  {{ title_suffix }}
+
+  {# Meta information for non-full view #}
+  {% if display_submitted and not page %}
+    <div class="job-posting-meta d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded">
+      {% if author_picture %}
+        <div class="flex-shrink-0">
+          {{ author_picture }}
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">Posted by {{ author_name }}</span>
+        <span class="text-muted small">
+          <i class="bi bi-calendar-event me-1"></i>{{ date }}
+        </span>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Job details sidebar for full view #}
+  {% if page %}
+    <div class="row">
+      <div class="col-lg-8">
+        {# Main job description #}
+        <div{{ content_attributes.addClass('node__content job-description') }}>
+          <h2 class="h4 mb-3 text-primary border-bottom pb-2">
+            <i class="bi bi-list-ul me-2"></i>Job Description
+          </h2>
+          {{ content.body }}
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        {# Job details sidebar #}
+        <div class="job-sidebar sticky-top">
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+              <h3 class="h5 mb-0">
+                <i class="bi bi-info-circle me-2"></i>Job Details
+              </h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                {% if content.field_business_unit|length > 0 %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                    <span><i class="bi bi-building me-2 text-muted"></i>Business Unit</span>
+                    <span class="fw-semibold">{{ content.field_business_unit }}</span>
+                  </li>
+                {% endif %}
+                
+                {% if content.field_reports_to|length > 0 %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                    <span><i class="bi bi-person-badge me-2 text-muted"></i>Reports To</span>
+                    <span class="fw-semibold">{{ content.field_reports_to }}</span>
+                  </li>
+                {% endif %}
+                
+                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                  <span><i class="bi bi-calendar me-2 text-muted"></i>Posted</span>
+                  <span class="fw-semibold">{{ date }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          {# Application CTA Card #}
+          <div class="card border-primary shadow-sm">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-briefcase-fill text-primary fs-1 mb-3 d-block"></i>
+              <h4 class="card-title h5">Interested in this position?</h4>
+              <p class="card-text text-muted mb-3">Apply now to join our team!</p>
+              
+              {# External link takes precedence #}
+              {% if content.field_link_to_info|length > 0 %}
+                <a href="{{ content.field_link_to_info[0]['#url'] }}" 
+                   class="btn btn-primary btn-lg w-100"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <i class="bi bi-box-arrow-up-right me-2"></i>Apply Online
+                </a>
+              {% endif %}
+              
+              {# PDF Download #}
+              {% if content.field_job_info_pdf|length > 0 %}
+                <a href="{{ content.field_job_info_pdf[0]['#file'].getFileUri() }}" 
+                   class="btn btn-outline-secondary mt-2 w-100"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <i class="bi bi-file-pdf me-2"></i>Download Job Description
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    {# Teaser view #}
+    <div{{ content_attributes.addClass('node__content job-teaser') }}>
+      <div class="row">
+        <div class="col-md-8">
+          {# Job description teaser #}
+          {% if content.body|length > 0 %}
+            <div class="job-teaser-description">
+              {{ content.body }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-4">
+          {# Quick job details #}
+          {% if content.field_business_unit|length > 0 or content.field_reports_to|length > 0 %}
+            <div class="job-teaser-meta bg-light p-3 rounded">
+              {% if content.field_business_unit|length > 0 %}
+                <div class="mb-2">
+                  <small class="text-muted">Business Unit:</small>
+                  <div class="fw-semibold">{{ content.field_business_unit }}</div>
+                </div>
+              {% endif %}
+              {% if content.field_reports_to|length > 0 %}
+                <div>
+                  <small class="text-muted">Reports To:</small>
+                  <div class="fw-semibold">{{ content.field_reports_to }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Links #}
+  {% if content.links %}
+    <nav class="mt-4 pt-3 border-top" aria-label="Job posting links">
+      {{ content.links }}
+    </nav>
+  {% endif %}
+
+</article>

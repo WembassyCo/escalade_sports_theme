@@ -1,0 +1,42 @@
+name: 'Escalade Sports'
+type: theme
+description: 'Custom Bootstrap 5 theme for Escalade Sports with 5-region homepage layout.'
+package: Custom
+core_version_requirement: ^10 || ^11
+
+# Base theme - Radix provides Bootstrap 5
+base theme: radix
+
+regions:
+  header: 'Header'
+  navigation: 'Navigation'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  # Homepage specific regions (5-region layout: 3 top + 2 bottom)
+  homepage_top_first: 'Homepage Top First'
+  homepage_top_second: 'Homepage Top Second'
+  homepage_top_third: 'Homepage Top Third'
+  homepage_bottom_first: 'Homepage Bottom First'
+  homepage_bottom_second: 'Homepage Bottom Second'
+  footer_first: 'Footer First'
+  footer_second: 'Footer Second'
+  footer_third: 'Footer Third'
+
+libraries:
+  - escalade_sports/bootstrap
+  - escalade_sports/theme
+
+# For theme preview
+theme_suggestions:
+  - escalade_sports
+
+css_preprocessor: true
+js_preprocessor: true
+
+# Theme dependencies
+dependencies:
+  - drupal:system
+  - drupal:user

@@ -1,0 +1,160 @@
+{#
+/**
+ * @file
+ * Escalade Sports homepage template.
+ *
+ * This template implements the D7 5-region layout:
+ * - 3 top regions (homepage_top_first, homepage_top_second, homepage_top_third)
+ * - 2 bottom regions (homepage_bottom_first, homepage_bottom_second)
+ *
+ * Variables:
+ * - page.homepage_top_first: First top region (left)
+ * - page.homepage_top_second: Second top region (center)
+ * - page.homepage_top_third: Third top region (right)
+ * - page.homepage_bottom_first: First bottom region (left/center)
+ * - page.homepage_bottom_second: Second bottom region (right)
+ * - page.content: Main content (fallback if regions empty)
+ */
+#}
+{{ attach_library('escalade_sports/frontpage') }}
+
+<div class="layout-container homepage" role="document">
+
+  {# Header Section #}
+  {% if page.header or page.navigation %}
+    <header class="site-header" role="banner">
+      <div class="header-top">
+        <div class="container">
+          {% include '@escalade_sports/templates/components/header.html.twig' %}
+        </div>
+      </div>
+      {% if page.navigation %}
+        <div class="header-navigation">
+          <div class="container">
+            {% include '@escalade_sports/templates/components/navigation.html.twig' %}
+          </div>
+        </div>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# Highlighted / Status Messages #}
+  {% if page.highlighted %}
+    <div class="highlighted-wrapper">
+      <div class="container">
+        {{ page.highlighted }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Hero / Featured Content Area (optional) #}
+  {% if page.highlighted or page.help %}
+    <div class="hero-wrapper">
+      <div class="container">
+        {% if page.help %}
+          {{ page.help }}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# ===== HOMEPAGE CONTENT AREA ===== #}
+  <main class="main-content homepage-content" role="main">
+    <a id="main-content" tabindex="-1"></a>
+
+    {# TOP ROW: 3 Regions (homepage_top_first, homepage_top_second, homepage_top_third) #}
+    {% if page.homepage_top_first or page.homepage_top_second or page.homepage_top_third %}
+      <section class="homepage-section homepage-top" aria-label="{{ 'Top Section'|t }}">
+        <div class="container">
+          <div class="row g-4">
+
+            {# Homepage Top First - Left Column #}
+            {% if page.homepage_top_first %}
+              <div class="homepage-region homepage-top-first col-md-4">
+                <div class="region-content card h-100">
+                  <div class="card-body">
+                    {{ page.homepage_top_first }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {# Homepage Top Second - Center Column #}
+            {% if page.homepage_top_second %}
+              <div class="homepage-region homepage-top-second col-md-4">
+                <div class="region-content card h-100">
+                  <div class="card-body">
+                    {{ page.homepage_top_second }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {# Homepage Top Third - Right Column #}
+            {% if page.homepage_top_third %}
+              <div class="homepage-region homepage-top-third col-md-4">
+                <div class="region-content card h-100">
+                  <div class="card-body">
+                    {{ page.homepage_top_third }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </section>
+    {% endif %}
+
+    {# BOTTOM ROW: 2 Regions (homepage_bottom_first, homepage_bottom_second) #}
+    {% if page.homepage_bottom_first or page.homepage_bottom_second %}
+      <section class="homepage-section homepage-bottom" aria-label="{{ 'Bottom Section'|t }}">
+        <div class="container">
+          <div class="row g-4">
+
+            {# Homepage Bottom First - Left/Wider Column (8 cols on large screens) #}
+            {% if page.homepage_bottom_first %}
+              <div class="homepage-region homepage-bottom-first col-lg-8">
+                <div class="region-content">
+                  {{ page.homepage_bottom_first }}
+                </div>
+              </div>
+            {% endif %}
+
+            {# Homepage Bottom Second - Right/Narrower Column (4 cols on large screens) #}
+            {% if page.homepage_bottom_second %}
+              <div class="homepage-region homepage-bottom-second col-lg-4">
+                <div class="region-content">
+                  {{ page.homepage_bottom_second }}
+                </div>
+              </div>
+            {% endif %}
+
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </section>
+    {% endif %}
+
+    {# Fallback Content Area - Used if standard content exists but not homepage regions #}
+    {% if page.content and not page.homepage_top_first and not page.homepage_bottom_first %}
+      <section class="homepage-section homepage-fallback">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              {{ page.content }}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+  </main>
+
+  {# Footer Section #}
+  {% if page.footer_first or page.footer_second or page.footer_third %}
+    <footer class="site-footer" role="contentinfo">
+      {% include '@escalade_sports/templates/components/footer.html.twig' %}
+    </footer>
+  {% endif %}
+
+</div>{# /.layout-container #}

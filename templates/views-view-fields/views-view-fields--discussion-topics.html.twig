@@ -1,0 +1,148 @@
+{#
+/**
+ * @file
+ * Theme override for view fields in Discussion Topics view.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler object.
+ *   - inline: Whether or not the field should be inline.
+ *   - label: The label text.
+ * @ingroup templates
+ */
+#}
+
+{# Discussion Topic Item #}
+<div class="discussion-topic-item card mb-3 shadow-sm {% if fields.sticky and fields.sticky.content|striptags == '1' %}border-warning border-2{% endif %}">
+  <div class="card-body p-3 p-md-4">
+    
+    <div class="d-flex gap-3">
+      
+      {# Author Avatar / Topic Icon #}
+      <div class="flex-shrink-0 text-center d-none d-md-block">
+        {% if fields.uid and fields.picture %}
+          <img src="{{ fields.picture.content|striptags|trim }}" 
+               alt="" 
+               class="rounded-circle"
+               style="width: 64px; height: 64px; object-fit: cover; border: 2px solid #0A4C97;">
+        {% else %}
+          <div class="discussion-icon rounded-circle mx-auto d-flex align-items-center justify-content-center"
+               style="width: 64px; height: 64px; background: linear-gradient(135deg, #0A4C97 0%, #00ADEE 100%);">
+            <i class="bi bi-chat-square-text text-white fs-4"></i>
+          </div>
+        {% endif %}
+        {# Reply count badge #}
+        {% if fields.comment_count %}
+          <div class="mt-2">
+            <span class="badge bg-info text-dark">
+              <i class="bi bi-chat-left me-1"></i>{{ fields.comment_count.content }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+      
+      {# Main Content #}
+      <div class="flex-grow-1 min-w-0">
+        
+        {# Title Row #}
+        <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+          <div class="flex-grow-1">
+            {% if fields.title %}
+              <h3 class="h5 mb-1">
+                {% if fields.sticky and fields.sticky.content|striptags == '1' %}
+                  <i class="bi bi-pin-fill text-warning me-1" title="Pinned Topic"></i>
+                {% endif %}
+                <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+                   class="text-decoration-none text-dark fw-semibold hover-primary"
+                   {% if fields.comment_nid %}href="/node/{{ fields.comment_nid.content|default('') }}"{% endif %}>
+                  {{ fields.title.content }}
+                </a>
+              </h3>
+            {% endif %}
+          </div>
+          
+          {# Status badges for mobile #}
+          <div class="d-flex gap-1 flex-shrink-0">
+            {% if fields.comment_new %}
+              <span class="badge bg-success">New</span>
+            {% endif %}
+          </div>
+        </div>
+        
+        {# Topic Meta #}
+        <div class="topic-meta text-muted small mb-2">
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <span>
+              <i class="bi bi-person me-1"></i>
+              {% if fields.uid %}{{ fields.uid.content }}{% endif %}
+            </span>
+            <span class="text-muted">·</span>
+            <span>
+              <i class="bi bi-calendar me-1"></i>
+              {% if fields.created %}{{ fields.created.content }}{% endif %}
+            </span>
+            {% if fields.field_topic_category %}
+              <span class="text-muted">·</span>
+              <span class="badge bg-light text-dark border">{{ fields.field_topic_category.content }}</span>
+            {% endif %}
+          </div>
+        </div>
+        
+        {# Topic Preview #}
+        {% if fields.title_1 or fields.comment_body_summary %}
+          <div class="topic-preview text-secondary small mt-2 p-2 bg-light rounded">
+            <span class="text-muted">Last reply: </span>
+            {% if fields.title_1 %}
+              <span class="fw-semibold">{{ fields.title_1.content }}</span>
+            {% endif %}
+            {% if fields.comment_body_summary %}
+              — {{ fields.comment_body_summary.content }}
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {# Mobile reply count #}
+        <div class="d-block d-md-none mt-2">
+          {% if fields.comment_count %}
+            <span class="badge bg-light text-dark">
+              <i class="bi bi-chat-left me-1"></i>{{ fields.comment_count.content }} replies
+            </span>
+          {% endif %}
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  {# Card Footer with Actions #}
+  <div class="card-footer bg-light border-0 py-2 px-3 px-md-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-2">
+        <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+           class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-chat-left-text me-1"></i>Read Discussion
+        </a>
+        {% if fields.uid == user.id or user.hasPermission('administer comments') %}
+          <a href="{{ fields.edit_node.content|default('#') }}" 
+             class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-pencil me-1"></i>Edit
+          </a>
+        {% endif %}
+      </div>
+      
+      <div class="text-muted small">
+        {% if fields.last_comment_timestamp %}
+          <span>
+            <i class="bi bi-arrow-clockwise me-1"></i>Last activity: {{ fields.last_comment_timestamp.content }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

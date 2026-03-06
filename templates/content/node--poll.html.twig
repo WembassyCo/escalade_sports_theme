@@ -1,0 +1,111 @@
+{#
+/**
+ * @file
+ * Theme override to display a Poll node.
+ *
+ * Custom template for Poll content type with Bootstrap 5 styling.
+ * Includes custom voting form styling with Bootstrap form components.
+ *
+ * The poll module handles the voting form and results display.
+ * This template wraps it with proper Bootstrap 5 card and form styling.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-poll',
+    'container',
+    'py-4',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  {# Title section #}
+  {% if label and not page %}
+    <header class="mb-3">
+      <h2{{ title_attributes.addClass('display-6 fw-bold text-dark') }}>
+        <a href="{{ url }}" rel="bookmark" class="text-decoration-none hover-primary">{{ label }}</a>
+      </h2>
+    </header>
+  {% else %}
+    <header class="mb-4 border-bottom pb-3">
+      <h1{{ title_attributes.addClass('display-5 fw-bold text-primary') }}>{{ label }}</h1>
+    </header>
+  {% endif %}
+  
+  {{ title_suffix }}
+
+  {# Meta information #}
+  {% if display_submitted %}
+    <div class="poll-meta d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded">
+      {% if author_picture %}
+        <div class="flex-shrink-0">
+          {{ author_picture }}
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">{{ author_name }}</span>
+        <span class="text-muted small">
+          <i class="bi bi-calendar-event me-1"></i>{{ date }}
+        </span>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Poll container with Bootstrap card styling #}
+  <div class="poll-container">
+    <div class="card shadow">
+      {# Poll header with icon #}
+      <div class="card-header bg-primary text-white py-3">
+        <h2 class="h4 mb-0 d-flex align-items-center">
+          <i class="bi bi-clipboard-data me-2"></i>
+          {% if poll_type %}
+            {{ poll_type }}
+          {% else %}
+            Community Poll
+          {% endif %}
+        </h2>
+      </div>
+      
+      <div class="card-body p-4 p-lg-5">
+        {# Poll question/subtitle if available #}
+        {% if content.body|length > 0 %}
+          <div class="poll-description mb-4">
+            <div class="lead">
+              {{ content.body }}
+            </div>
+          </div>
+        {% endif %}
+        
+        {# Poll voting form - custom Bootstrap styling wrapper #}
+        <div class="poll-form-wrapper">
+          {# The poll content which includes the voting form #}
+          {{ content|without('body', 'links') }}
+        </div>
+        
+        {# Poll footer with stats #}
+        <div class="poll-footer mt-4 pt-3 border-top text-muted text-center">
+          <small>
+            <i class="bi bi-info-circle me-1"></i>
+            Your vote helps shape our community decisions
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# Links #}
+  {% if content.links %}
+    <nav class="mt-4 pt-3 border-top" aria-label="Poll links">
+      {{ content.links }}
+    </nav>
+  {% endif %}
+
+</article>

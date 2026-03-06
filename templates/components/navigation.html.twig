@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Navigation component template.
+ *
+ * Variables:
+ * - main_menu: Array of main menu items
+ * - secondary_menu: Array of secondary menu items
+ * - current_path: Current page path
+ * - items: Menu items passed from parent template
+ */
+#}
+
+{# Desktop Navigation (lg and up) #}
+<nav class="navbar navbar-expand-lg d-none d-lg-block p-0" role="navigation" aria-label="{{ 'Main navigation'|t }}">
+  <div class="navbar-nav w-100 justify-content-center">
+    {% if page.navigation %}
+      {{ page.navigation }}
+    {% endif %}
+  </div>
+</nav>
+
+{# Mobile/Offcanvas Navigation #}
+<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="mainNavigation" aria-labelledby="mainNavigationLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="mainNavigationLabel">{{ 'Menu'|t }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    {% if page.navigation %}
+      <div class="mobile-navigation">
+        {{ page.navigation }}
+      </div>
+    {% endif %}
+    
+    {# Mobile Secondary Links #}
+    <hr class="my-3">
+    
+    <ul class="list-unstyled mb-0">
+      {% if logged_in %}
+        <li class="mb-2">
+          <a href="{{ path('user.page') }}" class="text-decoration-none">{{ 'My Account'|t }}</a>
+        </li>
+        <li class="mb-2">
+          <a href="{{ path('user.logout') }}" class="text-decoration-none">{{ 'Log Out'|t }}</a>
+        </li>
+      {% else %}
+        <li class="mb-2">
+          <a href="{{ path('user.login') }}" class="text-decoration-none">{{ 'Log In'|t }}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{# Breadcrumbs (if available) #}
+{% if breadcrumb %}
+  <nav aria-label="breadcrumb" class="breadcrumb-wrapper py-2">
+    <div class="container">
+      <ol class="breadcrumb mb-0">
+        {% for item in breadcrumb %}
+          {% if item.url %}
+            <li class="breadcrumb-item"><a href="{{ item.url }}">{{ item.text }}</a></li>
+          {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{ item.text }}</li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </div>
+  </nav>
+{% endif %}

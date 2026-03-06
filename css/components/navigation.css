@@ -1,0 +1,303 @@
+/**
+ * Escalade Sports Theme - Navigation Component Styles
+ */
+
+/* =============================================
+   Main Navigation (Desktop)
+   ============================================= */
+.navbar {
+  padding: 0;
+}
+
+.header-navigation .navbar-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.header-navigation .nav-item {
+  position: relative;
+}
+
+.header-navigation .nav-link {
+  color: var(--escalade-gray-700);
+  font-weight: 500;
+  padding: 0.875rem 1.25rem;
+  text-decoration: none;
+  border-radius: var(--escalade-border-radius);
+  transition: var(--escalade-transition-fast);
+  position: relative;
+}
+
+.header-navigation .nav-link:hover,
+.header-navigation .nav-link:focus {
+  color: var(--escalade-primary);
+  background: var(--escalade-gray-100);
+}
+
+.header-navigation .nav-link.active,
+.header-navigation .nav-item.is-active > .nav-link {
+  color: var(--escalade-primary);
+  font-weight: 600;
+}
+
+/* Active Link Indicator */
+.header-navigation .nav-item.is-active > .nav-link::after,
+.header-navigation .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 2px;
+  background: var(--escalade-primary);
+  border-radius: 1px;
+}
+
+/* =============================================
+   Dropdown Menus
+   ============================================= */
+.header-navigation .dropdown-menu {
+  border: 1px solid var(--escalade-gray-200);
+  box-shadow: var(--escalade-shadow);
+  border-radius: var(--escalade-border-radius);
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.header-navigation .dropdown-item {
+  color: var(--escalade-gray-700);
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  transition: var(--escalade-transition-fast);
+}
+
+.header-navigation .dropdown-item.active,
+.header-navigation .dropdown-item:active {
+  background: var(--escalade-primary);
+  color: #ffffff;
+}
+
+.header-navigation .dropdown-item:hover,
+.header-navigation .dropdown-item:focus {
+  background: var(--escalade-gray-100);
+  color: var(--escalade-primary);
+}
+
+/* Dropdown Divider */
+.hero-navigation .dropdown-divider {
+  border-color: var(--escalade-gray-200);
+  margin: 0.5rem 0;
+}
+
+/* =============================================
+   Mobile Navigation Button
+   ============================================= */
+.navbar-toggler {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--escalade-border-radius);
+  border: 1px solid var(--escalade-gray-400);
+  background: transparent;
+  cursor: pointer;
+}
+
+.navbar-toggler:hover {
+  background: var(--escalade-gray-100);
+}
+
+.navbar-toggler:focus {
+  outline: 2px solid var(--escalade-primary);
+  outline-offset: 2px;
+}
+
+.navbar-toggler-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* =============================================
+   Offcanvas / Mobile Navigation
+   ============================================= */
+.offcanvas {
+  background: #ffffff;
+  border-left: 1px solid var(--escalade-gray-200);
+}
+
+.offcanvas-header {
+  background: var(--escalade-gray-100);
+  border-bottom: 1px solid var(--escalade-gray-200);
+  padding: 1rem;
+}
+
+.offcanvas-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--escalade-gray-800);
+  margin: 0;
+}
+
+.offcanvas-body {
+  padding: 1rem;
+}
+
+.btn-close {
+  opacity: 0.7;
+  transition: var(--escalade-transition-fast);
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Mobile Navigation Menu */
+.offcanvas .mobile-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.offcanvas .mobile-navigation li {
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.offcanvas .mobile-navigation li:last-child {
+  border-bottom: none;
+}
+
+.offcanvas .mobile-navigation a {
+  display: block;
+  padding: 0.75rem 0;
+  color: var(--escalade-gray-700);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--escalade-transition-fast);
+}
+
+.offcanvas .mobile-navigation a:hover,
+.offcanvas .mobile-navigation a:focus {
+  color: var(--escalade-primary);
+  padding-left: 0.5rem;
+}
+
+.offcanvas .mobile-navigation a.is-active {
+  color: var(--escalade-primary);
+  font-weight: 600;
+}
+
+/* =============================================
+   Breadcrumbs
+   ============================================= */
+.breadcrumb-wrapper {
+  background: var(--escalade-gray-100);
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: 0.5rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '/';
+  padding-right: 0.5rem;
+  color: var(--escalade-gray-400);
+}
+
+.breadcrumb-item a {
+  color: var(--escalade-gray-600);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover,
+.breadcrumb-item a:focus {
+  color: var(--escalade-primary);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--escalade-gray-800);
+  font-weight: 500;
+}
+
+/* =============================================
+   Mega Menu (if implemented)
+   ============================================= */
+.mega-menu .dropdown-menu {
+  width: 100%;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--escalade-gray-200);
+  box-shadow: var(--escalade-shadow);
+}
+
+.mega-menu .dropdown-menu .container {
+  padding: 0;
+}
+
+.mega-menu-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--escalade-gray-800);
+}
+
+.mega-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mega-menu-list li {
+  margin-bottom: 0.5rem;
+}
+
+.mega-menu-list a {
+  color: var(--escalade-gray-600);
+  text-decoration: none;
+  font-size: 0.9375rem;
+}
+
+.mega-menu-list a:hover {
+  color: var(--escalade-primary);
+}
+
+/* =============================================
+   Accessibility
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .header-navigation .nav-link,
+  .header-navigation .dropdown-item,
+  .offcanvas .mobile-navigation a,
+  .btn-close,
+  .navbar-toggler {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .header-navigation .nav-link {
+    border: 1px solid transparent;
+  }
+  
+  .header-navigation .nav-link:focus {
+    border-color: currentColor;
+  }
+}

@@ -1,0 +1,408 @@
+/**
+ * Escalade Sports Theme - Homepage (Frontpage) Layout Styles
+ * 5-Region Layout: 3 top + 2 bottom
+ */
+
+/* =============================================
+   Homepage Container
+   ============================================= */
+.layout-container.homepage {
+  /* Remove default content padding for full-width sections */
+}
+
+.homepage main.main-content {
+  padding-top: 0;
+}
+
+/* =============================================
+   Homepage Sections (General)
+   ============================================= */
+.homepage-section {
+  padding: 3rem 0;
+}
+
+.homepage-section:first-of-type {
+  padding-top: 2rem;
+}
+
+.homepage-section:last-of-type {
+  padding-bottom: 4rem;
+}
+
+/* Alternate Background Colors */
+.homepage-section:nth-child(even) {
+  background: var(--escalade-gray-100);
+}
+
+/* =============================================
+   Top Row: 3 Regions (First, Second, Third)
+   ============================================= */
+.homepage-top {
+  padding: 3rem 0;
+}
+
+/* Top Region Cards */
+.homepage-region.homepage-top-first .region-content,
+.homepage-region.homepage-top-second .region-content,
+.homepage-region.homepage-top-third .region-content {
+  height: 100%;
+  border: none;
+  box-shadow: var(--escalade-shadow);
+  border-radius: var(--escalade-border-radius-lg);
+  overflow: hidden;
+  transition: var(--escalade-transition);
+}
+
+.homepage-region.homepage-top-first .region-content:hover,
+.homepage-region.homepage-top-second .region-content:hover,
+.homepage-region.homepage-top-third .region-content:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--escalade-shadow-lg);
+}
+
+.homepage-region.homepage-top-first .region-content .card-body,
+.homepage-region.homepage-top-second .region-content .card-body,
+.homepage-region.homepage-top-third .region-content .card-body {
+  padding: 2rem;
+  background: #ffffff;
+}
+
+/* Specific styling for blocks within top regions */
+.homepage-top .block {
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.homepage-top .block:last-child {
+  margin-bottom: 0;
+}
+
+/* Block Titles in Top Regions */
+.homepage-top .block-title,
+.homepage-top h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--escalade-gray-900);
+}
+
+.homepage-top .block-title a,
+.homepage-top h2 a {
+  color: var(--escalade-gray-900);
+  text-decoration: none;
+}
+
+.homepage-top .block-title a:hover {
+  color: var(--escalade-primary);
+}
+
+/* =============================================
+   Bottom Row: 2 Regions (First, Second)
+   ============================================= */
+.homepage-bottom {
+  padding: 4rem 0;
+}
+
+/* Homepage Bottom First - Wider 8-column region */
+.homepage-region.homepage-bottom-first {
+  /* Takes 8 columns on large screens */
+}
+
+.homepage-region.homepage-bottom-first .region-content {
+  background: #ffffff;
+  border-radius: var(--escalade-border-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--escalade-shadow);
+}
+
+/* Homepage Bottom Second - Narrower 4-column region */
+.homepage-region.homepage-bottom-second .region-content {
+  background: #ffffff;
+  border-radius: var(--escalade-border-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--escalade-shadow);
+  height: 100%;
+}
+
+/* Block Titles in Bottom Regions */
+.homepage-bottom .block-title,
+.homepage-bottom h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--escalade-gray-900);
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--escalade-primary);
+  display: inline-block;
+}
+
+.homepage-bottom .block-title a,
+.homepage-bottom h2 a {
+  color: var(--escalade-gray-900);
+  text-decoration: none;
+}
+
+/* =============================================
+   Hero Section (Highlight/Help)
+   ============================================= */
+.hero-wrapper {
+  background: var(--escalade-gray-100);
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+/* =============================================
+   Featured Content Views
+   ============================================= */
+.frontpage-view {
+  margin-bottom: 2rem;
+}
+
+.frontpage-view:last-child {
+  margin-bottom: 0;
+}
+
+.frontpage-view .views-row {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.frontpage-view .views-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.frontpage-view .views-field-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.frontpage-view .views-field-title a {
+  color: var(--escalade-gray-900);
+  text-decoration: none;
+}
+
+.frontpage-view .views-field-title a:hover {
+  color: var(--escalade-primary);
+}
+
+.frontpage-view .views-field-created,
+.frontpage-view .views-field-date {
+  color: var(--escalade-gray-500);
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.frontpage-view .views-field-body {
+  color: var(--escalade-gray-600);
+  line-height: 1.6;
+}
+
+.frontpage-view .views-more-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--escalade-primary);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: var(--escalade-border-radius);
+  font-weight: 500;
+  transition: var(--escalade-transition-fast);
+}
+
+.frontpage-view .views-more-link:hover {
+  background: var(--escalade-primary-dark);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* =============================================
+   Hero Banner Block (if present)
+   ============================================= */
+.hero-banner {
+  background: var(--escalade-primary);
+  color: #ffffff;
+  padding: 4rem 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.hero-banner h1,
+.hero-banner h2 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-banner p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+}
+
+.hero-banner .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* =============================================
+   Call to Action Blocks
+   ============================================= */
+.homepage-cta {
+  background: var(--escalade-primary);
+  border-radius: var(--escalade-border-radius-lg);
+  padding: 2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.homepage-cta h2,
+.homepage-cta h3 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.homepage-cta p {
+  opacity: 0.95;
+  margin-bottom: 1.5rem;
+}
+
+.homepage-cta .btn {
+  background: #ffffff;
+  color: var(--escalade-primary);
+  border: 2px solid #ffffff;
+  font-weight: 600;
+}
+
+.homepage-cta .btn:hover {
+  background: transparent;
+  color: #ffffff;
+}
+
+/* =============================================
+   Quick Links Block
+   ============================================= */
+.quick-links-block {
+  background: #ffffff;
+  border-radius: var(--escalade-border-radius);
+  padding: 1.5rem;
+}
+
+.quick-links-block h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.quick-links-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-links-block li {
+  margin-bottom: 0.5rem;
+}
+
+.quick-links-block a {
+  display: flex;
+  align-items: center;
+  color: var(--escalade-gray-700);
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: var(--escalade-border-radius);
+  transition: var(--escalade-transition-fast);
+}
+
+.quick-links-block a:hover {
+  background: var(--escalade-gray-100);
+  color: var(--escalade-primary);
+}
+
+.quick-links-block a::before {
+  content: '→';
+  margin-right: 0.5rem;
+  color: var(--escalade-primary);
+}
+
+/* =============================================
+   Responsive Adjustments
+   ============================================= */
+@media (max-width: 991.98px) {
+  /* Stack all regions on tablet */
+  .homepage-region {
+    margin-bottom: 2rem;
+  }
+  
+  .homepage-region:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Equalize card heights on tablet */
+  .homepage-region.homepage-top-first,
+  .homepage-region.homepage-top-second,
+  .homepage-region.homepage-top-third {
+    margin-bottom: 1.5rem;
+  }
+  
+  .homepage-region.homepage-bottom-first,
+  .homepage-region.homepage-bottom-second {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .homepage-section {
+    padding: 2rem 0;
+  }
+  
+  .homepage-region .region-content,
+  .homepage-region.homepage-bottom-first .region-content,
+  .homepage-region.homepage-bottom-second .region-content {
+    padding: 1.5rem;
+  }
+  
+  /* Reduce card hover effect on mobile */
+  .homepage-region.homepage-top-first .region-content:hover,
+  .homepage-region.homepage-top-second .region-content:hover,
+  .homepage-region.homepage-top-third .region-content:hover {
+    transform: none;
+  }
+  
+  .hero-banner h1,
+  .hero-banner h2 {
+    font-size: 2rem;
+  }
+  
+  .hero-banner p {
+    font-size: 1.125rem;
+  }
+}
+
+/* =============================================
+   Accessibility
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .homepage-region.homepage-top-first .region-content,
+  .homepage-region.homepage-top-second .region-content,
+  .homepage-region.homepage-top-third .region-content {
+    transition: none;
+  }
+  
+  .homepage-region .region-content:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .homepage-region .region-content {
+    border: 1px solid currentColor;
+  }
+}

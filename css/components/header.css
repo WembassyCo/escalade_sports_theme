@@ -1,0 +1,208 @@
+/**
+ * Escalade Sports Theme - Header Component Styles
+ */
+
+/* =============================================
+   Header Layout
+   ============================================= */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--escalade-gray-200);
+  position: relative;
+  z-index: 100;
+}
+
+.header-top {
+  background: #ffffff;
+}
+
+.header-navigation {
+  background: var(--escalade-gray-100);
+  border-top: 1px solid var(--escalade-gray-200);
+}
+/* =============================================
+   Site Branding
+   ============================================= */
+.header-branding {
+  padding: 1rem 0;
+}
+
+.branding-left {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.site-logo img {
+  max-height: 60px;
+  width: auto;
+  transition: var(--escalade-transition-fast);
+}
+
+.site-logo:hover img {
+  transform: scale(1.02);
+}
+
+.site-branding-text {
+  margin-left: 1rem;
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.site-name a {
+  color: var(--escalade-gray-900);
+  text-decoration: none;
+}
+
+.site-name a:hover {
+  color: var(--escalade-primary);
+}
+
+.site-slogan {
+  font-size: 0.875rem;
+  color: var(--escalade-gray-600);
+  margin-top: 0.25rem;
+}
+
+/* =============================================
+   Header Actions (Right Side)
+   ============================================= */
+.branding-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Search Toggle Button */
+.search-toggle {
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* User Account Button */
+.branding-right .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.branding-right .dropdown-menu {
+  border: 1px solid var(--escalade-gray-200);
+  box-shadow: var(--escalade-shadow);
+  border-radius: var(--escalade-border-radius);
+}
+
+/* =============================================
+   Search Wrapper
+   ============================================= */
+.search-wrapper {
+  background: var(--escalade-gray-100);
+  border-bottom: 1px solid var(--escalade-gray-200);
+}
+
+.search-wrapper form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-wrapper .form-search {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--escalade-gray-400);
+  border-radius: var(--escalade-border-radius);
+  font-size: 0.9375rem;
+}
+
+.search-wrapper .form-search:focus {
+  border-color: var(--escalade-primary);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.search-wrapper .form-submit {
+  padding: 0.5rem 1.25rem;
+  white-space: nowrap;
+}
+
+/* Mobile Search */
+@media (max-width: 575.98px) {
+  .search-wrapper form {
+    flex-direction: column;
+  }
+  
+  .search-wrapper .form-submit {
+    width: 100%;
+  }
+}
+
+/* =============================================
+   Mobile Header
+   ============================================= */
+@media (max-width: 991.98px) {
+  .site-logo img {
+    max-height: 45px;
+  }
+  
+  .site-name {
+    font-size: 1.25rem;
+  }
+  
+  .site-slogan {
+    font-size: 0.75rem;
+  }
+  
+  .branding-right .btn span:first-of-type,
+  .branding-right .dropdown-toggle span {
+    display: none;
+  }
+}
+
+/* =============================================
+   Sticky Header (Optional)
+   ============================================= */
+.site-header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: var(--escalade-shadow);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   Accessiblity Improvements
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .site-logo:hover img,
+  .site-header.sticky {
+    animation: none;
+    transform: none;
+  }
+}

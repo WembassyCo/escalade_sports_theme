@@ -1,0 +1,292 @@
+/**
+ * Escalade Sports Theme - Footer Component Styles
+ */
+
+/* =============================================
+   Footer Layout
+   ============================================= */
+.site-footer {
+  margin-top: auto;
+  background: var(--escalade-gray-900);
+  color: var(--escalade-gray-400);
+}
+
+.footer-wrapper {
+  background: inherit;
+}
+
+/* =============================================
+   Main Footer Content
+   ============================================= */
+.footer-main {
+  padding: 3rem 0;
+  background: var(--escalade-gray-800);
+}
+
+.footer-region {
+  padding: 1rem;
+}
+
+.footer-region .block {
+  margin-bottom: 1.5rem;
+}
+
+.footer-region .block:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer Block Titles */
+.footer-region .block-title,
+.footer-region h2,
+.footer-region h3,
+.footer-region h4 {
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--escalade-primary);
+  display: inline-block;
+}
+
+/* Footer Links */
+.footer-region a {
+  color: var(--escalade-gray-400);
+  text-decoration: none;
+  transition: var(--escalade-transition-fast);
+}
+
+.footer-region a:hover,
+.footer-region a:focus {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Footer Lists */
+.footer-region ul,
+.footer-region ol {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.footer-region li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer Paragraphs */
+.footer-region p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.footer-region p:last-child {
+  margin-bottom: 0;
+}
+
+/* =============================================
+   Footer Bottom Bar
+   ============================================= */
+.footer-bottom {
+  background: var(--escalade-gray-900);
+  border-top: 1px solid var(--escalade-gray-700);
+  padding: 1.5rem 0;
+  font-size: 0.875rem;
+}
+
+.footer-copyright {
+  color: var(--escalade-gray-500);
+}
+
+.footer-copyright p {
+  margin: 0;
+}
+
+/* Footer Links (Bottom Bar) */
+.footer-links .list-inline {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footer-links .list-inline-item {
+  margin: 0;
+}
+
+.footer-links a {
+  color: var(--escalade-gray-400);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  transition: var(--escalade-transition-fast);
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-links .list-inline-item span {
+  color: var(--escalade-gray-600);
+}
+
+/* Back to Top Button */
+.footer-back-to-top .btn {
+  padding: 0.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: var(--escalade-gray-600);
+  color: var(--escalade-gray-400);
+}
+
+.footer-back-to-top .btn:hover,
+.footer-back-to-top .btn:focus {
+  background: var(--escalade-primary);
+  border-color: var(--escalade-primary);
+  color: #ffffff;
+}
+
+.footer-back-to-top svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* =============================================
+   Social Media Links (if present)
+   ============================================= */
+.footer-social {
+  margin-top: 1rem;
+}
+
+.footer-social .list-inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--escalade-gray-600);
+  border-radius: 50%;
+  color: var(--escalade-gray-400);
+  transition: var(--escalade-transition-fast);
+}
+
+.footer-social a:hover,
+.footer-social a:focus {
+  background: var(--escalade-primary);
+  border-color: var(--escalade-primary);
+  color: #ffffff;
+}
+
+/* =============================================
+   Newsletter Block (if present)
+   ============================================= */
+.footer-newsletter {
+  margin-top: 1.5rem;
+}
+
+.footer-newsletter h3,
+.footer-newsletter h4 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.footer-newsletter form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.footer-newsletter input[type="email"] {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--escalade-gray-600);
+  border-radius: var(--escalade-border-radius);
+  background: var(--escalade-gray-700);
+  color: #ffffff;
+}
+
+.footer-newsletter input[type="email"]::placeholder {
+  color: var(--escalade-gray-500);
+}
+
+.footer-newsletter input[type="email"]:focus {
+  border-color: var(--escalade-primary);
+  background: var(--escalade-gray-800);
+}
+
+/* =============================================
+   Responsive Footer
+   ============================================= */
+@media (max-width: 767.98px) {
+  .footer-main {
+    padding: 2rem 0;
+  }
+  
+  .footer-region {
+    padding: 0.75rem;
+    text-align: center;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+  }
+  
+  .footer-bottom > div > div {
+    flex-direction: column !important;
+    gap: 1rem;
+  }
+  
+  .footer-links {
+    order: 2;
+  }
+  
+  .footer-back-to-top {
+    order: 3;
+  }
+  
+  .footer-copyright {
+    order: 4;
+  }
+}
+
+/* =============================================
+   Contact Info Block (if present)
+   ============================================= */
+.footer-contact address {
+  font-style: normal;
+  line-height: 1.8;
+}
+
+.footer-contact .contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer-contact .contact-icon {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+  color: var(--escalade-primary);
+}
+
+/* =============================================
+   Accessibility: Reduced Motion
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .footer-region a,
+  .footer-links a,
+  .footer-back-to-top .btn,
+  .footer-social a {
+    transition: none;
+  }
+}

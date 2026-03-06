@@ -1,0 +1,98 @@
+{#
+/**
+ * @file
+ * Theme override to display a Pulse Report node.
+ *
+ * Custom template for Pulse Report content type with Bootstrap 5 styling.
+ * Includes support for PDF link display.
+ *
+ * Available fields:
+ * - body: Main body content
+ * - field_pdf_link: String field containing the PDF link URL
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-pulse-report',
+    'container',
+    'py-4',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  {# Title section #}
+  {% if label and not page %}
+    <header class="mb-3">
+      <h2{{ title_attributes.addClass('display-6 fw-bold text-dark') }}>
+        <a href="{{ url }}" rel="bookmark" class="text-decoration-none hover-primary">{{ label }}</a>
+      </h2>
+    </header>
+  {% else %}
+    <header class="mb-4 border-bottom pb-3">
+      <h1{{ title_attributes.addClass('display-5 fw-bold text-primary') }}>{{ label }}</h1>
+    </header>
+  {% endif %}
+  
+  {{ title_suffix }}
+
+  {# Meta information #}
+  {% if display_submitted %}
+    <div class="pulse-report-meta d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded">
+      {% if author_picture %}
+        <div class="flex-shrink-0">
+          {{ author_picture }}
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">{{ author_name }}</span>
+        <span class="text-muted small">
+          <i class="bi bi-calendar-event me-1"></i>{{ date }}
+        </span>
+      </div>
+    </div>
+  {% endif %}
+
+  {# PDF Link section - displayed prominently if available #}
+  {% if content.field_pdf_link|length > 0 and content.field_pdf_link[0]['#context']['value'] is not empty %}
+    <div class="pulse-report-pdf mb-4">
+      <div class="alert alert-info d-flex align-items-center gap-3" role="alert">
+        <div class="flex-shrink-0">
+          <i class="bi bi-file-pdf fs-3 text-danger"></i>
+        </div>
+        <div class="flex-grow-1">
+          <h5 class="alert-heading mb-1">Pulse Report PDF</h5>
+          <p class="mb-0 text-muted">Download the full report document</p>
+        </div>
+        <div class="flex-shrink-0">
+          <a href="{{ content.field_pdf_link[0]['#context']['value'] }}" 
+             class="btn btn-primary" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            <i class="bi bi-download me-2"></i>Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Main content area #}
+  <div{{ content_attributes.addClass('node__content pulse-report-content') }}>
+    {{ content.body }}
+  </div>
+
+  {# Links #}
+  {% if content.links %}
+    <nav class="mt-4 pt-3 border-top" aria-label="Pulse report links">
+      {{ content.links }}
+    </nav>
+  {% endif %}
+
+</article>

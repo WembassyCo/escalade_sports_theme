@@ -1,0 +1,230 @@
+{#
+/**
+ * @file
+ * Theme override for view fields in Activity Committee view.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler object.
+ *   - inline: Whether or not the field should be inline.
+ *   - label: The label text.
+ * @ingroup templates
+ */
+#}
+
+{# Activity Committee Event Card #}
+<div class="committee-activity-item card mb-3 shadow-sm">
+  <div class="card-body p-4">
+    
+    <div class="d-flex flex-column flex-lg-row gap-4">
+      
+      {# Event Date Box #}
+      <div class="flex-shrink-0 text-center">
+        <div class="event-date-box bg-primary text-white rounded-3 p-3 d-flex flex-column justify-content-center"
+             style="min-width: 100px;">
+          {% if fields.field_event_date %}
+            <span class="fw-bold fs-3 lh-1">
+              {{ fields.field_event_date.content|striptags|split(' ')|first|strip_tags }}
+            </span>
+            <span class="text-uppercase small fw-medium opacity-75">
+              {{ fields.field_event_date.content|striptags|split(' ')|slice(1)|join(' ')|strip_tags }}
+            </span>
+          {% else %}
+            <span class="fw-bold fs-3 lh-1">TBA</span>
+            <span class="text-uppercase small fw-medium opacity-75">Date</span>
+          {% endif %}
+        </div>
+        
+        {# Time badge below date box #}
+        {% if fields.field_event_time %}
+          <div class="mt-2">
+            <span class="badge bg-info text-dark">
+              <i class="bi bi-clock me-1"></i>{{ fields.field_event_time.content }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+      
+      {# Main Event Content #}
+      <div class="flex-grow-1">
+        
+        {# Title and Type #}
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-2">
+          {% if fields.title %}
+            <h3 class="h5 mb-0">
+              <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+                 class="text-decoration-none text-dark fw-bold hover-primary">
+                {{ fields.title.content }}
+              </a>
+            </h3>
+          {% endif %}
+          
+          {% if fields.field_event_type %}
+            <span class="badge bg-light text-primary border border-primary flex-shrink-0">
+              <i class="bi bi-calendar-event me-1"></i>{{ fields.field_event_type.content }}
+            </span>
+          {% endif %}
+        </div>
+        
+        {# Committee Meta #}
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+          <span class="text-muted small">
+            <i class="bi bi-people me-1 text-primary"></i>Activity Committee
+          </span>
+          {% if fields.changed %}
+            <span class="text-muted">·</span>
+            <span class="text-muted small">
+              <i class="bi bi-pencil me-1"></i>Updated: {{ fields.changed.content }}
+            </span>
+          {% endif %}
+        </div>
+        
+        {# Event Description #}
+        {% if fields.body %}
+          <div class="card-text text-secondary mb-3">
+            {{ fields.body.content }}
+          </div>
+        {% endif %}
+        
+        {# Event Details Grid #}
+        <div class="row g-2 mt-2">
+          
+          {# Location #}
+          {% if fields.field_location and fields.field_location.content|striptags|trim is not empty %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-start gap-2">
+                <div class="flex-shrink-0">
+                  <span class="badge bg-light text-dark">
+                    <i class="bi bi-geo-alt text-primary"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <small class="text-muted">Location:</small>
+                  <div class="fw-medium">{{ fields.field_location.content }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          
+          {# Organizer #}
+          {% if fields.field_organizer and fields.field_organizer.content|striptags|trim is not empty %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-start gap-2">
+                <div class="flex-shrink-0">
+                  <span class="badge bg-light text-dark">
+                    <i class="bi bi-person-badge text-primary"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <small class="text-muted">Organizer:</small>
+                  <div class="fw-medium">{{ fields.field_organizer.content }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          
+          {# Contact Email #}
+          {% if fields.field_contact_email and fields.field_contact_email.content|striptags|trim is not empty %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-start gap-2">
+                <div class="flex-shrink-0">
+                  <span class="badge bg-light text-dark">
+                    <i class="bi bi-envelope text-primary"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <small class="text-muted">Contact:</small>
+                  <div class="fw-medium">{{ fields.field_contact_email.content }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          
+          {# Max Participants #}
+          {% if fields.field_max_participants and fields.field_max_participants.content|striptags|trim is not empty %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-start gap-2">
+                <div class="flex-shrink-0">
+                  <span class="badge bg-light text-dark">
+                    <i class="bi bi-people-fill text-primary"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <small class="text-muted">Max Participants:</small>
+                  <div class="fw-medium">{{ fields.field_max_participants.content }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          
+        </div>
+        
+        {# Event Status / RSVP Section #}
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-4 pt-3 border-top">
+          <div class="d-flex gap-2">
+            
+            {# Status Badge #}
+            {% if fields.field_registration_status %}
+              {% set status = fields.field_registration_status.content|striptags|trim|lower %}
+              {% if status == 'open' %}
+                <span class="badge bg-success">
+                  <i class="bi bi-check-circle me-1"></i>Registration Open
+                </span>
+              {% elseif status == 'closed' %}
+                <span class="badge bg-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Registration Closed
+                </span>
+              {% elseif status == 'waitlist' %}
+                <span class="badge bg-warning text-dark">
+                  <i class="bi bi-clock me-1"></i>Waitlist
+                </span>
+              {% elseif status == 'cancelled' %}
+                <span class="badge bg-danger">
+                  <i class="bi bi-x-octagon me-1"></i>Cancelled
+                </span>
+              {% else %}
+                <span class="badge bg-light text-dark border">
+                  <i class="bi bi-info-circle me-1"></i>{{ fields.field_registration_status.content }}
+                </span>
+              {% endif %}
+            {% endif %}
+            
+            {# Participant Count #}
+            {% if fields.field_registered_count %}
+              <span class="badge bg-light text-dark">
+                <i class="bi bi-person-check me-1"></i>
+                {{ fields.field_registered_count.content }} registered
+              </span>
+            {% endif %}
+            
+          </div>
+          
+          {# Action Buttons #}
+          <div class="d-flex gap-2">
+            <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+               class="btn btn-primary btn-sm">
+              <i class="bi bi-info-circle me-1"></i>Details
+            </a>
+            
+            {% if fields.field_registration_link %}
+              <a href="{{ fields.field_registration_link.content|striptags|trim }}" 
+                 class="btn btn-success btn-sm"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                <i class="bi bi-person-plus me-1"></i>RSVP
+              </a>
+            {% endif %}
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</div>

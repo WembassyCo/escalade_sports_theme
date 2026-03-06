@@ -1,0 +1,96 @@
+{#
+/**
+ * @file
+ * Theme override for view fields in News Lists view.
+ *
+ * Based on D7: views-view-fields--news-lists--block-1.tpl.php
+ * 
+ * Available variables:
+ * - view: The view object.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler object.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_prefix: A complete wrapper containing the inline_html to use.
+ *   - wrapper_suffix: The closing tag for the wrapper.
+ *   - label: The label text.
+ *   - label_html: The full HTML of the label.
+ * - row: The raw result object from the query.
+ *
+ * @ingroup templates
+ */
+#}
+
+{# News List Item Container #}
+<div class="news-list-item card mb-4 shadow-sm border-0">
+  <div class="row g-0">
+    
+    {# Featured Image/Video Section #}
+    <div class="col-md-4">
+      {% if fields.field_video and fields.field_video.content|striptags|trim is not empty %}
+        <div class="video-wrapper ratio ratio-16x9 h-100 bg-dark rounded-start">
+          {{ fields.field_video.content }}
+        </div>
+      {% elseif fields.field_related_photo and fields.field_related_photo.content|striptags|trim is not empty %}
+        <div class="news-image-wrapper h-100">
+          <img src="{{ fields.field_related_photo.content|striptags|trim }}" 
+               alt="{{ fields.title.content|striptags|trim }}" 
+               class="img-fluid rounded-start h-100 w-100 object-fit-cover">
+        </div>
+      {% else %}
+        <div class="news-image-placeholder h-100 bg-light d-flex align-items-center justify-content-center rounded-start">
+          <i class="bi bi-newspaper text-muted fs-1"></i>
+        </div>
+      {% endif %}
+    </div>
+    
+    {# Content Section #}
+    <div class="col-md-8">
+      <div class="card-body d-flex flex-column h-100">
+        
+        {# Title #}
+        {% if fields.title %}
+          <h3 class="card-title h5 mb-2">
+            <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+               class="text-decoration-none text-dark hover-primary">
+              {{ fields.title.content }}
+            </a>
+          </h3>
+        {% endif %}
+        
+        {# Date/Author Meta #}
+        <div class="news-meta text-muted small mb-3">
+          {% if fields.created %}
+            <span class="text-primary">
+              <i class="bi bi-calendar-event me-1"></i>{{ fields.created.content }}
+            </span>
+          {% endif %}
+          {% if fields.uid %}
+            <span class="ms-3">
+              <i class="bi bi-person me-1"></i>{{ fields.uid.content }}
+            </span>
+          {% endif %}
+        </div>
+        
+        {# Body/Excerpt #}
+        {% if fields.body %}
+          <div class="card-text text-secondary flex-grow-1">
+            {{ fields.body.content }}
+          </div>
+        {% endif %}
+        
+        {# Read More Link #}
+        <div class="mt-3 pt-3 border-top">
+          <a href="{{ fields.view_node.content|default(fields.path.content)|default('#') }}" 
+             class="btn btn-outline-primary btn-sm">
+            Continue Reading <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
