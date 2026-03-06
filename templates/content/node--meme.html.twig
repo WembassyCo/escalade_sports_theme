@@ -1,0 +1,88 @@
+{#
+/**
+ * @file
+ * Theme override to display a Meme node.
+ *
+ * Custom template for Meme content type with Bootstrap 5 styling.
+ * Standard node display with title, body, author information, and user picture.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-meme',
+    'container',
+    'py-4',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  
+  {# Title section #}
+  {% if label and not page %}
+    <header class="mb-3">
+      <h2{{ title_attributes.addClass('display-6 fw-bold text-dark') }}>
+        <a href="{{ url }}" rel="bookmark" class="text-decoration-none hover-primary">{{ label }}</a>
+      </h2>
+    </header>
+  {% else %}
+    <header class="mb-4 border-bottom pb-3">
+      <h1{{ title_attributes.addClass('display-5 fw-bold text-primary') }}>{{ label }}</h1>
+    </header>
+  {% endif %}
+  
+  {{ title_suffix }}
+
+  {# Meme meta information (author + picture) #}
+  {% if display_submitted %}
+    <div class="meme-meta d-flex flex-wrap align-items-center gap-3 mb-4 p-3 bg-light rounded">
+      {% if author_picture %}
+        <div class="flex-shrink-0">
+          {{ author_picture }}
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column">
+        <span class="fw-semibold text-dark">{{ author_name }}</span>
+        <span class="text-muted small">
+          <i class="bi bi-calendar-event me-1"></i>{{ date }}
+        </span>
+        <span class="text-muted small">
+          <i class="bi bi-clock me-1"></i>{{ 'Submitted'|t }}
+        </span>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Main content area #}
+  <div{{ content_attributes.addClass('node__content meme-content') }}>
+    {{ content.body }}
+    
+    {# Additional meme fields if present #}
+    {% if content.field_meme_image|length > 0 %}
+      <div class="meme-image my-4 text-center">
+        {{ content.field_meme_image }}
+      </div>
+    {% endif %}
+    
+    {% if content.field_category|length > 0 %}
+      <div class="meme-category mt-4 pt-3 border-top">
+        <span class="text-muted">{{ 'Category'|t }}:</span>
+        {{ content.field_category }}
+      </div>
+    {% endif %}
+  </div>
+
+  {# Links #}
+  {% if content.links %}
+    <nav class="mt-4 pt-3 border-top" aria-label="Meme links">
+      {{ content.links }}
+    </nav>
+  {% endif %}
+
+</article>

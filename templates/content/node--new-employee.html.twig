@@ -1,0 +1,178 @@
+{#
+/**
+ * @file
+ * Theme override to display a New Employee node.
+ *
+ * Custom template for New Employee content type with Bootstrap 5 styling.
+ * Employee profile display with image/photo, name, and introduction text.
+ * Page view: 175px image, Block view: 100px image
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-new-employee',
+    'new-employ',
+    'clearfix',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished bg-light',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if view_mode == 'teaser' or view_mode == 'full' %}
+    {# Teaser/Compact view - 100px image, float left #}
+    <div class="d-flex align-items-start gap-3">
+      
+      {# Employee Photo - 100px for teaser/block view #}
+      {% if content.field_employee_photo|length > 0 or content.field_image|length > 0 %}
+        <div class="flex-shrink-0">
+          {% if content.field_employee_photo|length > 0 %}
+            <div class="employee-photo-teaser" style="width: 100px;">
+              {{ content.field_employee_photo }}
+            </div>
+          {% elseif content.field_image|length > 0 %}
+            <div class="employee-photo-teaser" style="width: 100px;">
+              {{ content.field_image }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      <div class="flex-grow-1">
+        
+        {# Employee Name #}
+        {% if label %}
+          <h3 class="name fw-normal text-dark mb-2" style="font-size: 1.1em; line-height: normal;">
+            {% if page %}
+              {{ label }}
+            {% else %}
+              <a href="{{ url }}" class="text-decoration-none text-dark hover-primary">{{ label }}</a>
+            {% endif %}
+          </h3>
+        {% endif %}
+        
+        {# Introduction/Bio #}
+        {% if content.field_introduction|length > 0 or content.body|length > 0 %}
+          <div class="intro text-secondary" style="line-height: 1.5em;">
+            {% if content.field_introduction|length > 0 %}
+              {{ content.field_introduction }}
+            {% elseif content.body|length > 0 %}
+              {{ content.body }}
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {# Department/Title #}
+        {% if content.field_department|length > 0 or content.field_job_title|length > 0 %}
+          <div class="mt-2 text-muted small">
+            {% if content.field_job_title|length > 0 %}
+              <span class="job-title">{{ content.field_job_title }}</span>
+            {% endif %}
+            {% if content.field_department|length > 0 %}
+              {% if content.field_job_title|length > 0 %}<span class="mx-1">•</span>{% endif %}
+              <span class="department">{{ content.field_department }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        {# Start Date #}
+        {% if content.field_start_date|length > 0 %}
+          <div class="start-date mt-2 text-muted small">
+            <i class="bi bi-calendar-check me-1"></i>
+            {{ 'Started:'|t }} {{ content.field_start_date }}
+          </div>
+        {% endif %}
+        
+      </div>
+    </div>
+  
+  {% else %}
+    {# Full/Detail view #}
+    <div class="row">
+      
+      {# Employee Photo - 175px for full page view #}
+      {% if content.field_employee_photo|length > 0 or content.field_image|length > 0 %}
+        <div class="col-md-4 mb-4">
+          <div class="employee-photo-full" style="width: 175px;">
+            {% if content.field_employee_photo|length > 0 %}
+              {{ content.field_employee_photo }}
+            {% elseif content.field_image|length > 0 %}
+              {{ content.field_image }}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      
+      <div class="{% if content.field_employee_photo|length > 0 or content.field_image|length > 0 %}col-md-8{% else %}col-12{% endif %}">
+        
+        {# Employee Name as main title #}
+        {% if label %}
+          {% if page %}
+            <h1{{ title_attributes.addClass('name display-6 fw-bold text-dark mb-3') }}>{{ label }}</h1>
+          {% else %}
+            <h2{{ title_attributes.addClass('name display-6 fw-bold text-dark mb-3') }}>
+              <a href="{{ url }}" class="text-decoration-none">{{ label }}</a>
+            </h2>
+          {% endif %}
+        {% endif %}
+        
+        {# Meta info #}
+        <div class="mb-3 text-muted small">
+          {% if content.field_job_title|length > 0 %}
+            <span class="me-3"><i class="bi bi-briefcase me-1"></i>{{ content.field_job_title }}</span>
+          {% endif %}
+          {% if content.field_department|length > 0 %}
+            <span class="me-3"><i class="bi bi-building me-1"></i>{{ content.field_department }}</span>
+          {% endif %}
+          {% if content.field_start_date|length > 0 %}
+            <span><i class="bi bi-calendar-check me-1"></i>{{ content.field_start_date }}</span>
+          {% endif %}
+        </div>
+        
+        {# Introduction/Bio #}
+        <div{{ content_attributes.addClass('node__content intro fs-5') }}>
+          {% if content.field_introduction|length > 0 %}
+            {{ content.field_introduction }}
+          {% elseif content.body|length > 0 %}
+            {{ content.body }}
+          {% endif %}
+        </div>
+        
+        {# Additional fields #}
+        {% if content.field_email|length > 0 or content.field_phone|length > 0 %}
+          <div class="contact-info mt-4 p-3 bg-light rounded">
+            <h4 class="h6 text-muted mb-3">{{ 'Contact Information'|t }}</h4>
+            <div class="d-flex flex-wrap gap-3">
+              {% if content.field_email|length > 0 %}
+                <div>
+                  <i class="bi bi-envelope me-1 text-primary"></i>{{ content.field_email }}
+                </div>
+              {% endif %}
+              {% if content.field_phone|length > 0 %}
+                <div>
+                  <i class="bi bi-telephone me-1 text-primary"></i>{{ content.field_phone }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        
+      </div>
+    </div>
+    
+    {# Links #}
+    {% if content.links %}
+      <nav class="mt-4 pt-3 border-top" aria-label="Employee links">
+        {{ content.links }}
+      </nav>
+    {% endif %}
+    
+  {% endif %}
+
+</article>
